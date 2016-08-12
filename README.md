@@ -1,1 +1,1 @@
-# assets
+Collection of test assets, and a library to import them with.
