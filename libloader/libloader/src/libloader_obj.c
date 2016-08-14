@@ -12,17 +12,20 @@
 #include <string.h>
 #include <assert.h>
 
-bool libload_obj(const char* filename, /*inout*/ libload_model_t* model)
+bool libload_obj(const char* filename, libload_obj_model_t* model)
 {
     bool result = false;
+    size_t buffer_size = 0;
     char* buffer = 0;
     char* buffer_end = 0;
     char* line = 0;
     char* line_end = 0;
-    size_t buffer_size = 0;
-    float* verts = 0;
-    float* vert_normals = 0;
-    float* vert_texcoords = 0;
+    libload_float3_t* verts = 0;
+    libload_float3_t* vert_normals = 0;
+    libload_float2_t* vert_texcoords = 0;
+    uint8_t* positions_base = 0;
+    uint8_t* normals_base = 0;
+    uint8_t* texcoords_base = 0;
     size_t num_verts = 0;
     size_t num_vert_normals = 0;
     size_t num_vert_texcoords = 0;
@@ -30,6 +33,9 @@ bool libload_obj(const char* filename, /*inout*/ libload_model_t* model)
     char smooth_group[5] = { 0 };
     size_t max_vertices = model->num_vertices;
 
+    model->num_vertices = 0;
+
+    // input validation
     if (model->positions && model->positions_stride == 0)
       goto cleanup;
 
@@ -39,27 +45,37 @@ bool libload_obj(const char* filename, /*inout*/ libload_model_t* model)
     if (model->texcoords && model->texcoords_stride == 0)
       goto cleanup;
 
+    // read the entire file into memory
     buffer = read_text_file(filename, &buffer_size);
     if (!buffer)
       goto cleanup;
 
     buffer_end = buffer + buffer_size;
 
-    // allocate buffers for holding values conservatively (as if the whole file is just this)
-    verts = (float*)malloc(buffer_size / sizeof(float));
+    // allocate buffers for holding values conservatively
+    // as if the whole file is just this type of value
+    verts = (libload_float3_t*)malloc(buffer_size);
     if (!verts)
         goto cleanup;
 
-    vert_normals = (float*)malloc(buffer_size / sizeof(float));
+    vert_normals = (libload_float3_t*)malloc(buffer_size);
     if (!vert_normals)
         goto cleanup;
 
-    vert_texcoords = (float*)malloc(buffer_size / sizeof(float));
+    vert_texcoords = (libload_float2_t*)malloc(buffer_size);
     if (!vert_texcoords)
         goto cleanup;
 
+    memset(verts, 0, buffer_size);
+    memset(vert_normals, 0, buffer_size);
+    memset(vert_texcoords, 0, buffer_size);
+
+    positions_base = (uint8_t*)model->positions;
+    normals_base = (uint8_t*)model->normals;
+    texcoords_base = (uint8_t*)model->texcoords;
+
+    // start at top of buffer, and start parsing one line at a time
     line = buffer;
-    model->num_vertices = 0;
     while (line < buffer_end)
     {
         // read one line in by finding the newline & turning into \0
@@ -79,15 +95,32 @@ bool libload_obj(const char* filename, /*inout*/ libload_model_t* model)
         }
         else if (_strnicmp(line, "v ", 2) == 0) // vertex
         {
-            num_verts += sscanf_s(line + 2, "%f %f %f", &verts[num_verts], &verts[num_verts + 1], &verts[num_verts + 2]);
+          if (sscanf_s(line + 2, "%f %f %f",
+            &verts[num_verts].x,
+            &verts[num_verts].y,
+            &verts[num_verts].z) != 3)
+            goto cleanup;
+
+          ++num_verts;
         }
         else if (_strnicmp(line, "vn ", 3) == 0) // vertex normals
         {
-            num_vert_normals += sscanf_s(line + 3, "%f %f %f", &vert_normals[num_vert_normals], &vert_normals[num_vert_normals + 1], &vert_normals[num_vert_normals + 2]);
+          if (sscanf_s(line + 3, "%f %f %f",
+            &vert_normals[num_vert_normals].x,
+            &vert_normals[num_vert_normals].y,
+            &vert_normals[num_vert_normals].z) != 3)
+            goto cleanup;
+
+          ++num_vert_normals;
         }
         else if (_strnicmp(line, "vt ", 3) == 0) // vertex tex coords
         {
-            num_vert_texcoords += sscanf_s(line + 3, "%f %f %f", &vert_texcoords[num_vert_texcoords], &vert_texcoords[num_vert_texcoords + 1], &vert_texcoords[num_vert_texcoords + 2]);
+          if (sscanf_s(line + 3, "%f %f",
+            &vert_texcoords[num_vert_texcoords].x,
+            &vert_texcoords[num_vert_texcoords].y) != 2)
+            goto cleanup;
+
+          ++num_vert_texcoords;
         }
         else if (_strnicmp(line, "g ", 2) == 0) // new group
         {
@@ -103,82 +136,81 @@ bool libload_obj(const char* filename, /*inout*/ libload_model_t* model)
         else if (_strnicmp(line, "f ", 2) == 0) // face definition
         {
             int v[4], vn[4], vt[4];
-            int num_fields = sscanf_s(line + 2, "%d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
+            int num_fields = sscanf_s(line + 2,
+              "%d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
                 &v[0], &vt[0], &vn[0],
                 &v[1], &vt[1], &vn[1],
                 &v[2], &vt[2], &vn[2],
                 &v[3], &vt[3], &vn[3]);
 
-            if (num_fields < 10)
+            if (num_fields == 9)  // single triangle
             {
               // enough room left?
               if (model->num_vertices + 3 > max_vertices)
                 break;
 
-              // single triangle
-              if (model->positions)
+              if (model->positions) // caller wants positions
               {
-                float* positions = (float*)((uint8_t*)model->positions + model->positions_stride * model->num_vertices);
-                positions[0] = verts[v[0]];
-                positions[1] = verts[v[1]];
-                positions[2] = verts[v[2]];
-              }
-              if (model->texcoords)
-              {
-                float* texcoords = (float*)((uint8_t*)model->texcoords + model->texcoords_stride * model->num_vertices);
-                texcoords[0] = vert_texcoords[vt[0]];
-                texcoords[1] = vert_texcoords[vt[1]];
-                texcoords[2] = vert_texcoords[vt[2]];
+                *(libload_float3_t*)(positions_base + model->positions_stride * model->num_vertices) = verts[v[0] - 1];
+                *(libload_float3_t*)(positions_base + model->positions_stride * (model->num_vertices + 1)) = verts[v[1] - 1];
+                *(libload_float3_t*)(positions_base + model->positions_stride * (model->num_vertices + 2)) = verts[v[2] - 1];
               }
               if (model->normals)
               {
-                float* normals = (float*)((uint8_t*)model->normals + model->normals_stride * model->num_vertices);
-                normals[0] = vert_normals[vn[0]];
-                normals[1] = vert_normals[vn[1]];
-                normals[2] = vert_normals[vn[2]];
+                *(libload_float3_t*)(normals_base + model->normals_stride * model->num_vertices) = vert_normals[vn[0] - 1];
+                *(libload_float3_t*)(normals_base + model->normals_stride * (model->num_vertices + 1)) = vert_normals[vn[1] - 1];
+                *(libload_float3_t*)(normals_base + model->normals_stride * (model->num_vertices + 2)) = vert_normals[vn[2] - 1];
+              }
+              if (model->texcoords)
+              {
+                *(libload_float2_t*)(texcoords_base + model->texcoords_stride * model->num_vertices) = vert_texcoords[vt[0] - 1];
+                *(libload_float2_t*)(texcoords_base + model->texcoords_stride * (model->num_vertices + 1)) = vert_texcoords[vt[1] - 1];
+                *(libload_float2_t*)(texcoords_base + model->texcoords_stride * (model->num_vertices + 2)) = vert_texcoords[vt[2] - 1];
               }
 
               model->num_vertices += 3;
             }
-            else
+            else if (num_fields == 12) // quad
             {
               // enough room left?
               if (model->num_vertices + 6 > max_vertices)
                 break;
 
-              // quad
               if (model->positions)
               {
-                float* positions = (float*)((uint8_t*)model->positions + model->positions_stride * model->num_vertices);
-                positions[0] = verts[v[0]];
-                positions[1] = verts[v[1]];
-                positions[2] = verts[v[2]];
-                positions[3] = verts[v[0]];
-                positions[4] = verts[v[2]];
-                positions[5] = verts[v[3]];
-              }
-              if (model->texcoords)
-              {
-                float* texcoords = (float*)((uint8_t*)model->texcoords + model->texcoords_stride * model->num_vertices);
-                texcoords[0] = vert_texcoords[vt[0]];
-                texcoords[1] = vert_texcoords[vt[1]];
-                texcoords[2] = vert_texcoords[vt[2]];
-                texcoords[3] = vert_texcoords[vt[0]];
-                texcoords[4] = vert_texcoords[vt[2]];
-                texcoords[5] = vert_texcoords[vt[3]];
+                *(libload_float3_t*)(positions_base + model->positions_stride * model->num_vertices) = verts[v[0] - 1];
+                *(libload_float3_t*)(positions_base + model->positions_stride * (model->num_vertices + 1)) = verts[v[1] - 1];
+                *(libload_float3_t*)(positions_base + model->positions_stride * (model->num_vertices + 2)) = verts[v[2] - 1];
+                *(libload_float3_t*)(positions_base + model->positions_stride * (model->num_vertices + 3)) = verts[v[0] - 1];
+                *(libload_float3_t*)(positions_base + model->positions_stride * (model->num_vertices + 4)) = verts[v[2] - 1];
+                *(libload_float3_t*)(positions_base + model->positions_stride * (model->num_vertices + 5)) = verts[v[3] - 1];
               }
               if (model->normals)
               {
-                float* normals = (float*)((uint8_t*)model->normals + model->normals_stride * model->num_vertices);
-                normals[0] = vert_normals[vn[0]];
-                normals[1] = vert_normals[vn[1]];
-                normals[2] = vert_normals[vn[2]];
-                normals[3] = vert_normals[vn[0]];
-                normals[4] = vert_normals[vn[2]];
-                normals[5] = vert_normals[vn[3]];
+                *(libload_float3_t*)(normals_base + model->normals_stride * model->num_vertices) = vert_normals[vn[0] - 1];
+                *(libload_float3_t*)(normals_base + model->normals_stride * (model->num_vertices + 1)) = vert_normals[vn[1] - 1];
+                *(libload_float3_t*)(normals_base + model->normals_stride * (model->num_vertices + 2)) = vert_normals[vn[2] - 1];
+                *(libload_float3_t*)(normals_base + model->normals_stride * (model->num_vertices + 3)) = vert_normals[vn[0] - 1];
+                *(libload_float3_t*)(normals_base + model->normals_stride * (model->num_vertices + 4)) = vert_normals[vn[2] - 1];
+                *(libload_float3_t*)(normals_base + model->normals_stride * (model->num_vertices + 5)) = vert_normals[vn[3] - 1];
+              }
+              if (model->texcoords)
+              {
+                *(libload_float2_t*)(texcoords_base + model->texcoords_stride * model->num_vertices) = vert_texcoords[vt[0] - 1];
+                *(libload_float2_t*)(texcoords_base + model->texcoords_stride * (model->num_vertices + 1)) = vert_texcoords[vt[1] - 1];
+                *(libload_float2_t*)(texcoords_base + model->texcoords_stride * (model->num_vertices + 2)) = vert_texcoords[vt[2] - 1];
+                *(libload_float2_t*)(texcoords_base + model->texcoords_stride * (model->num_vertices + 3)) = vert_texcoords[vt[0] - 1];
+                *(libload_float2_t*)(texcoords_base + model->texcoords_stride * (model->num_vertices + 4)) = vert_texcoords[vt[2] - 1];
+                *(libload_float2_t*)(texcoords_base + model->texcoords_stride * (model->num_vertices + 5)) = vert_texcoords[vt[3] - 1];
               }
 
               model->num_vertices += 6;
+            }
+            else
+            {
+              // can have larger polys than quad?
+              assert(false);
+              goto cleanup;
             }
         }
 

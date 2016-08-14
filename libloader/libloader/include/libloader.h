@@ -11,23 +11,53 @@
 extern "C" {
 #endif
 
+//=============================================================================
+// general type definitions
+//=============================================================================
+
 typedef struct
 {
-  uint32_t num_vertices;
-  float* positions;
-  float* normals;
-  float* texcoords;
-  uint32_t positions_stride;
-  uint32_t normals_stride;
-  uint32_t texcoords_stride;
-} libload_model_t;
+  float x, y;
+} libload_float2_t;
 
-// load OBJ model.
-// On input, model should contain valid pointers to streams the caller wants
-// filled. For example, if 'float* positions' is non-null, positions will be
-// filled in for each vertex. Also, on input, num_verts should be set to
-// the maximum number of verts the streams can hold.
-bool libload_obj(const char* filename, /*inout*/ libload_model_t* model);
+typedef struct
+{
+  float x, y, z;
+} libload_float3_t;
+
+//=============================================================================
+// support for OBJ model files
+//=============================================================================
+
+typedef struct
+{
+  // in: max capacity of vertices in streams
+  // out: number of vertices filled in
+  uint32_t num_vertices;
+
+  // in_opt: head of positions stream to fill in
+  libload_float3_t* positions;
+
+  // in_opt: head of normals stream to fill in
+  libload_float3_t* normals;
+
+  // in_opt: head of texcoords stream to fill in
+  libload_float2_t* texcoords;
+
+  // in: if positions is non-null, number of bytes between 2 consecutive
+  // position values in the stream.
+  uint32_t positions_stride;
+
+  // in: if normals is non-null, number of bytes between 2 consecutive
+  // normal values in the stream.
+  uint32_t normals_stride;
+
+  // in: if texcoords is non-null, number of bytes between 2 consecutive
+  // texcoord values in the stream.
+  uint32_t texcoords_stride;
+} libload_obj_model_t;
+
+bool libload_obj(const char* filename, libload_obj_model_t* model);
 
 #ifdef __cplusplus
 } // extern "C"

@@ -5,6 +5,11 @@
 // Shaders
 #include "Quad_vs.h"
 #include "Quad_ps.h"
+#include "Model_vs.h"
+#include "Model_ps.h"
+
+#include <DirectXMath.h>
+using namespace DirectX;
 
 #pragma comment(lib, "d3d11.lib")
 
@@ -231,7 +236,7 @@ void QuadRenderer::OnRender()
 // ModelRenderer
 //=============================================================================
 
-HRESULT ModelRenderer::Initialize(HWND hwnd)
+HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const SimpleVertex3D* vertices)
 {
   HRESULT hr = BaseInitialize(hwnd);
   if (FAILED(hr))
@@ -239,10 +244,167 @@ HRESULT ModelRenderer::Initialize(HWND hwnd)
     return hr;
   }
 
-  return hr;
+  hr = device_->CreateVertexShader(Model_vs, sizeof(Model_vs), nullptr, &vertexshader_);
+  if (FAILED(hr))
+  {
+    assert(false);
+    return hr;
+  }
+
+  hr = device_->CreatePixelShader(Model_ps, sizeof(Model_ps), nullptr, &pixelshader_);
+  if (FAILED(hr))
+  {
+    assert(false);
+    return hr;
+  }
+
+  D3D11_INPUT_ELEMENT_DESC elems[3]{};
+  elems[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+  elems[0].SemanticName = "POSITION";
+  elems[1].AlignedByteOffset = sizeof(float) * 3;
+  elems[1].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+  elems[1].SemanticName = "NORMAL";
+  elems[2].AlignedByteOffset = sizeof(float) * 6;
+  elems[2].Format = DXGI_FORMAT_R32G32_FLOAT;
+  elems[2].SemanticName = "TEXCOORD";
+  hr = device_->CreateInputLayout(elems, _countof(elems), Model_vs, sizeof(Model_vs), &inputlayout_);
+  if (FAILED(hr))
+  {
+    assert(false);
+    return hr;
+  }
+
+  D3D11_BUFFER_DESC bd{};
+  bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+  bd.StructureByteStride = sizeof(SimpleVertex3D);
+  bd.ByteWidth = bd.StructureByteStride * num_vertices;
+
+  D3D11_SUBRESOURCE_DATA init{};
+  init.pSysMem = vertices;
+  init.SysMemPitch = sizeof(SimpleVertex3D) * num_vertices;
+  init.SysMemSlicePitch = init.SysMemPitch;
+
+  hr = device_->CreateBuffer(&bd, &init, &vertexbuffer_);
+  if (FAILED(hr))
+  {
+    assert(false);
+    return hr;
+  }
+
+  num_vertices_ = num_vertices;
+
+  RECT rc{};
+  GetClientRect(hwnd, &rc);
+
+  XMStoreFloat4x4(&constants_.LocalToWorld, XMMatrixIdentity());
+  XMStoreFloat4x4(&constants_.WorldToView, XMMatrixLookAtLH(
+    XMLoadFloat3(&camera_position_), XMVectorZero(), XMVectorSet(0, 1, 0, 0)));
+  XMStoreFloat4x4(&constants_.ViewToProjection, XMMatrixPerspectiveFovLH(
+    XMConvertToRadians(90.f), (rc.right - rc.left) / (float)(rc.bottom - rc.top), 1.f, 1000.f));
+
+  bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+  bd.StructureByteStride = sizeof(constant_data);
+  bd.ByteWidth = bd.StructureByteStride;
+
+  init.pSysMem = &constants_;
+  init.SysMemPitch = sizeof(constant_data);
+  init.SysMemSlicePitch = init.SysMemPitch;
+
+  hr = device_->CreateBuffer(&bd, &init, &constantbuffer_);
+  if (FAILED(hr))
+  {
+    assert(false);
+    return hr;
+  }
+
+  uint32_t strides[] = { sizeof(SimpleVertex3D) };
+  uint32_t offsets[] = { 0 };
+
+  context_->IASetInputLayout(inputlayout_.Get());
+  context_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+  context_->IASetVertexBuffers(0, 1, vertexbuffer_.GetAddressOf(), strides, offsets);
+  context_->VSSetShader(vertexshader_.Get(), nullptr, 0);
+  context_->VSSetConstantBuffers(0, 1, constantbuffer_.GetAddressOf());
+  context_->PSSetShader(pixelshader_.Get(), nullptr, 0);
+
+  return S_OK;
+}
+
+void ModelRenderer::HandleInput()
+{
+  // extract vectors from quaternion so we can base movement on them
+  XMVECTOR quat = XMLoadFloat4(&camera_orientation_);
+  XMVECTOR right = XMVector3Rotate(XMVectorSet(1, 0, 0, 0), quat);
+  XMVECTOR forward = XMVector3Rotate(XMVectorSet(0, 0, 1, 0), quat);
+  XMVECTOR up = XMVector3Rotate(XMVectorSet(0, 1, 0, 0), quat);
+
+  // amount of movement due to input
+  XMVECTOR movement = XMVectorZero();
+  XMVECTOR rotation = XMQuaternionIdentity();
+
+  // translation
+  if (GetAsyncKeyState('W') & 0x8000)
+  {
+    movement += forward * 5;
+  }
+  if (GetAsyncKeyState('A') & 0x8000)
+  {
+    movement -= right * 5;
+  }
+  if (GetAsyncKeyState('S') & 0x8000)
+  {
+    movement -= forward * 5;
+  }
+  if (GetAsyncKeyState('D') & 0x8000)
+  {
+    movement += right * 5;
+  }
+
+  // rotation
+  if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+  {
+    rotation = XMQuaternionMultiply(rotation, XMQuaternionRotationAxis(up, -XMConvertToRadians(1.f)));
+  }
+  if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+  {
+    rotation = XMQuaternionMultiply(rotation, XMQuaternionRotationAxis(up, XMConvertToRadians(1.f)));
+  }
+  if (GetAsyncKeyState(VK_UP) & 0x8000)
+  {
+    rotation = XMQuaternionMultiply(rotation, XMQuaternionRotationAxis(right, -XMConvertToRadians(1.f)));
+  }
+  if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+  {
+    rotation = XMQuaternionMultiply(rotation, XMQuaternionRotationAxis(right, XMConvertToRadians(1.f)));
+  }
+
+  // Store new position based on movement
+  XMStoreFloat3(&camera_position_, XMLoadFloat3(&camera_position_) + movement);
+
+  // adjust orientation to always maintain horizon line
+  quat = XMQuaternionNormalize(XMQuaternionMultiply(quat, rotation));
+
+  forward = XMVector3Rotate(XMVectorSet(0, 0, 1, 0), quat);
+  right = XMVector3Cross(XMVectorSet(0, 1, 0, 0), forward);
+  up = XMVector3Cross(forward, right);
+
+  XMMATRIX rot;
+  rot.r[0] = right;
+  rot.r[1] = up;
+  rot.r[2] = forward;
+  rot.r[3] = XMVectorSet(0, 0, 0, 1);
+  XMStoreFloat4(&camera_orientation_, XMQuaternionRotationMatrix(rot));
 }
 
 void ModelRenderer::OnRender()
 {
+  XMVECTOR position = XMLoadFloat3(&camera_position_);
+  XMVECTOR quat = XMLoadFloat4(&camera_orientation_);
+  XMVECTOR forward = XMVector3Rotate(XMVectorSet(0, 0, 1, 0), quat);
+  XMVECTOR up = XMVector3Rotate(XMVectorSet(0, 1, 0, 0), quat);
 
+  XMStoreFloat4x4(&constants_.WorldToView, XMMatrixLookToLH(position, forward, up));
+  context_->UpdateSubresource(constantbuffer_.Get(), 0, nullptr, &constants_, sizeof(constants_), 0);
+
+  context_->Draw(num_vertices_, 0);
 }

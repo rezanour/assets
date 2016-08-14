@@ -3,15 +3,24 @@
 #include <d3d11.h>
 #include <wrl.h>
 #include <stdint.h>
+#include <DirectXMath.h>
 
 class QuadRenderer;
 class ModelRenderer;
+
+struct SimpleVertex3D
+{
+  float x, y, z;    // position
+  float nx, ny, nz; // normal
+  float u, v;       // texcoord
+};
 
 class BaseRenderer
 {
 public:
   virtual ~BaseRenderer() {}
 
+  virtual void HandleInput() {}
   HRESULT Render(int swap_interval);
 
 protected:
@@ -64,7 +73,9 @@ public:
   ModelRenderer() {}
   virtual ~ModelRenderer() {}
 
-  HRESULT Initialize(HWND hwnd);
+  HRESULT Initialize(HWND hwnd, uint32_t num_vertices, const SimpleVertex3D* vertices);
+
+  virtual void HandleInput() override;
 
 private:
   virtual void OnRender() override;
@@ -73,10 +84,21 @@ private:
   ModelRenderer& operator= (const ModelRenderer&) = delete;
 
 private:
+  struct constant_data
+  {
+    DirectX::XMFLOAT4X4 LocalToWorld;
+    DirectX::XMFLOAT4X4 WorldToView;
+    DirectX::XMFLOAT4X4 ViewToProjection;
+  };
+
   Microsoft::WRL::ComPtr<ID3D11Buffer> vertexbuffer_;
-  Microsoft::WRL::ComPtr<ID3D11Buffer> indexbuffer_;
   Microsoft::WRL::ComPtr<ID3D11Buffer> constantbuffer_;
   Microsoft::WRL::ComPtr<ID3D11InputLayout> inputlayout_;
   Microsoft::WRL::ComPtr<ID3D11VertexShader> vertexshader_;
   Microsoft::WRL::ComPtr<ID3D11PixelShader> pixelshader_;
+  uint32_t num_vertices_ = 0;
+
+  constant_data constants_ = {};
+  DirectX::XMFLOAT3 camera_position_ = DirectX::XMFLOAT3(0, 0, -500);
+  DirectX::XMFLOAT4 camera_orientation_ = DirectX::XMFLOAT4(0, 0, 0, 1);
 };

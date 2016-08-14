@@ -3,6 +3,7 @@
 #include <commdlg.h>
 
 #include <memory>
+#include <vector>
 #include <string>
 
 #include <DirectXTex.h>
@@ -76,6 +77,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR command_line, int)
       }
       else
       {
+        renderer->HandleInput();
         hr = renderer->Render(1);
       }
     }
@@ -212,18 +214,19 @@ HRESULT LoadAsset(const char* filename, HWND hwnd, std::unique_ptr<BaseRenderer>
     ModelRenderer* model_renderer = new ModelRenderer;
     out_renderer->reset(model_renderer);
 
-    libload_model_t model{};
-    model.num_vertices = 300000;
-    model.positions = (float*)malloc(sizeof(float) * 3 * model.num_vertices);
-    model.normals = (float*)malloc(sizeof(float) * 3 * model.num_vertices);
-    model.texcoords = (float*)malloc(sizeof(float) * 3 * model.num_vertices);
-    model.positions_stride = sizeof(float) * 3;
-    model.normals_stride = sizeof(float) * 3;
-    model.texcoords_stride = sizeof(float) * 3;
+    std::vector<SimpleVertex3D> vertices(1500000);
+    libload_obj_model_t model{};
+    model.num_vertices = (uint32_t)vertices.size();
+    model.positions = (libload_float3_t*)&vertices.data()->x;
+    model.normals = (libload_float3_t*)&vertices.data()->nx;
+    model.texcoords = (libload_float2_t*)&vertices.data()->u;
+    model.positions_stride = sizeof(SimpleVertex3D);
+    model.normals_stride = sizeof(SimpleVertex3D);
+    model.texcoords_stride = sizeof(SimpleVertex3D);
     bool result = libload_obj(filename, &model);
     if (result)
     {
-      hr = model_renderer->Initialize(hwnd);
+      hr = model_renderer->Initialize(hwnd, model.num_vertices, vertices.data());
       if (FAILED(hr))
       {
         *out_error_message = L"Failed to initialize model renderer.";
@@ -234,9 +237,6 @@ HRESULT LoadAsset(const char* filename, HWND hwnd, std::unique_ptr<BaseRenderer>
       hr = E_FAIL;
       *out_error_message = L"Failed to load OBJ file.";
     }
-    free(model.positions);
-    free(model.normals);
-    free(model.texcoords);
   }
 
   return hr;
