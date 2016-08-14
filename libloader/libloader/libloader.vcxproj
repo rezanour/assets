@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\libloader.h" />
-    <ClInclude Include="src\libloader_obj.h" />
     <ClInclude Include="src\libloader_util.h" />
   </ItemGroup>
   <ItemGroup>

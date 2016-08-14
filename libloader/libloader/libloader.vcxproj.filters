@@ -12,9 +12,6 @@
     <ClInclude Include="include\libloader.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="src\libloader_obj.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\libloader_util.h">
       <Filter>src</Filter>
     </ClInclude>

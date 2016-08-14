@@ -300,7 +300,7 @@ HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const Simple
   XMStoreFloat4x4(&constants_.WorldToView, XMMatrixLookAtLH(
     XMLoadFloat3(&camera_position_), XMVectorZero(), XMVectorSet(0, 1, 0, 0)));
   XMStoreFloat4x4(&constants_.ViewToProjection, XMMatrixPerspectiveFovLH(
-    XMConvertToRadians(90.f), (rc.right - rc.left) / (float)(rc.bottom - rc.top), 1.f, 1000.f));
+    XMConvertToRadians(60.f), (rc.right - rc.left) / (float)(rc.bottom - rc.top), 1.f, 1000.f));
 
   bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
   bd.StructureByteStride = sizeof(constant_data);
@@ -326,6 +326,38 @@ HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const Simple
   context_->VSSetShader(vertexshader_.Get(), nullptr, 0);
   context_->VSSetConstantBuffers(0, 1, constantbuffer_.GetAddressOf());
   context_->PSSetShader(pixelshader_.Get(), nullptr, 0);
+
+  return S_OK;
+}
+
+HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const SimpleVertex3D* vertices, uint32_t num_indices, const uint32_t* indices)
+{
+  HRESULT hr = Initialize(hwnd, num_vertices, vertices);
+  if (FAILED(hr))
+  {
+    return hr;
+  }
+
+  D3D11_BUFFER_DESC bd{};
+  bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
+  bd.StructureByteStride = sizeof(uint32_t);
+  bd.ByteWidth = bd.StructureByteStride * num_indices;
+
+  D3D11_SUBRESOURCE_DATA init{};
+  init.pSysMem = indices;
+  init.SysMemPitch = sizeof(uint32_t) * num_indices;
+  init.SysMemSlicePitch = init.SysMemPitch;
+
+  hr = device_->CreateBuffer(&bd, &init, &indexbuffer_);
+  if (FAILED(hr))
+  {
+    assert(false);
+    return hr;
+  }
+
+  num_indices_ = num_indices;
+
+  context_->IASetIndexBuffer(indexbuffer_.Get(), DXGI_FORMAT_R32_UINT, 0);
 
   return S_OK;
 }
@@ -406,5 +438,12 @@ void ModelRenderer::OnRender()
   XMStoreFloat4x4(&constants_.WorldToView, XMMatrixLookToLH(position, forward, up));
   context_->UpdateSubresource(constantbuffer_.Get(), 0, nullptr, &constants_, sizeof(constants_), 0);
 
-  context_->Draw(num_vertices_, 0);
+  if (indexbuffer_)
+  {
+    context_->DrawIndexed(num_indices_, 0, 0);
+  }
+  else
+  {
+    context_->Draw(num_vertices_, 0);
+  }
 }

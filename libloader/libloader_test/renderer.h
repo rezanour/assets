@@ -74,6 +74,7 @@ public:
   virtual ~ModelRenderer() {}
 
   HRESULT Initialize(HWND hwnd, uint32_t num_vertices, const SimpleVertex3D* vertices);
+  HRESULT Initialize(HWND hwnd, uint32_t num_vertices, const SimpleVertex3D* vertices, uint32_t num_indices, const uint32_t* indices);
 
   virtual void HandleInput() override;
 
@@ -92,11 +93,13 @@ private:
   };
 
   Microsoft::WRL::ComPtr<ID3D11Buffer> vertexbuffer_;
+  Microsoft::WRL::ComPtr<ID3D11Buffer> indexbuffer_;
   Microsoft::WRL::ComPtr<ID3D11Buffer> constantbuffer_;
   Microsoft::WRL::ComPtr<ID3D11InputLayout> inputlayout_;
   Microsoft::WRL::ComPtr<ID3D11VertexShader> vertexshader_;
   Microsoft::WRL::ComPtr<ID3D11PixelShader> pixelshader_;
   uint32_t num_vertices_ = 0;
+  uint32_t num_indices_ = 0;
 
   constant_data constants_ = {};
   DirectX::XMFLOAT3 camera_position_ = DirectX::XMFLOAT3(0, 0, -500);

@@ -214,29 +214,36 @@ HRESULT LoadAsset(const char* filename, HWND hwnd, std::unique_ptr<BaseRenderer>
     ModelRenderer* model_renderer = new ModelRenderer;
     out_renderer->reset(model_renderer);
 
-    std::vector<SimpleVertex3D> vertices(1500000);
-    libload_obj_model_t model{};
-    model.num_vertices = (uint32_t)vertices.size();
-    model.positions = (libload_float3_t*)&vertices.data()->x;
-    model.normals = (libload_float3_t*)&vertices.data()->nx;
-    model.texcoords = (libload_float2_t*)&vertices.data()->u;
-    model.positions_stride = sizeof(SimpleVertex3D);
-    model.normals_stride = sizeof(SimpleVertex3D);
-    model.texcoords_stride = sizeof(SimpleVertex3D);
-    bool result = libload_obj(filename, &model);
+    uint32_t num_verts = 0;
+    uint32_t num_indices = 0;
+    LARGE_INTEGER start{}, end{}, freq{};
+    QueryPerformanceFrequency(&freq);
+    QueryPerformanceCounter(&start);
+
+    libload_obj_model_t* model = nullptr;
+    bool result = libload_obj_load(filename, &model);
     if (result)
     {
-      hr = model_renderer->Initialize(hwnd, model.num_vertices, vertices.data());
+      num_verts = model->num_vertices;
+      num_indices = model->num_indices;
+      hr = model_renderer->Initialize(hwnd, model->num_vertices, (const SimpleVertex3D*)model->vertices,
+        model->num_indices, model->indices);
       if (FAILED(hr))
       {
         *out_error_message = L"Failed to initialize model renderer.";
       }
+      libload_obj_free(model);
     }
     else
     {
       hr = E_FAIL;
       *out_error_message = L"Failed to load OBJ file.";
     }
+
+    QueryPerformanceCounter(&end);
+    wchar_t message[500]{};
+    swprintf_s(message, L"Verts: %d, Indices: %d, Elapsed: %3.2fms\n", num_verts, num_indices, 1000.f * (end.QuadPart - start.QuadPart) / (float)freq.QuadPart);
+    OutputDebugString(message);
   }
 
   return hr;

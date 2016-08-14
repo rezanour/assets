@@ -4,8 +4,11 @@
 //=============================================================================
 #pragma once
 
-#include <stdbool.h>
 #include <stdint.h>
+
+#ifndef __cplusplus
+#include <stdbool.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,33 +34,31 @@ typedef struct
 
 typedef struct
 {
-  // in: max capacity of vertices in streams
-  // out: number of vertices filled in
+  libload_float3_t position;
+  libload_float3_t normal;
+  libload_float2_t texcoord;
+} libload_obj_vertex_t;
+
+typedef struct
+{
+  char name[32];
+  uint32_t base_index;
+  uint32_t num_indices;
+} libload_obj_model_part_t;
+
+typedef struct
+{
+  uint32_t num_parts;
   uint32_t num_vertices;
+  uint32_t num_indices;
 
-  // in_opt: head of positions stream to fill in
-  libload_float3_t* positions;
-
-  // in_opt: head of normals stream to fill in
-  libload_float3_t* normals;
-
-  // in_opt: head of texcoords stream to fill in
-  libload_float2_t* texcoords;
-
-  // in: if positions is non-null, number of bytes between 2 consecutive
-  // position values in the stream.
-  uint32_t positions_stride;
-
-  // in: if normals is non-null, number of bytes between 2 consecutive
-  // normal values in the stream.
-  uint32_t normals_stride;
-
-  // in: if texcoords is non-null, number of bytes between 2 consecutive
-  // texcoord values in the stream.
-  uint32_t texcoords_stride;
+  libload_obj_model_part_t* parts;
+  libload_obj_vertex_t* vertices;
+  uint32_t* indices;
 } libload_obj_model_t;
 
-bool libload_obj(const char* filename, libload_obj_model_t* model);
+bool libload_obj_load(const char* filename, libload_obj_model_t** out_model);
+void libload_obj_free(libload_obj_model_t* model);
 
 #ifdef __cplusplus
 } // extern "C"
