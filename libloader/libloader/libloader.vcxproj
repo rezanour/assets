@@ -13,9 +13,11 @@
   <ItemGroup>
     <ClInclude Include="include\libloader.h" />
     <ClInclude Include="src\libloader_obj.h" />
+    <ClInclude Include="src\libloader_util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\libloader_obj.c" />
+    <ClCompile Include="src\libloader_util.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1700D8C2-FE7A-4133-8B69-30760CED36A0}</ProjectGuid>

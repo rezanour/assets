@@ -15,9 +15,15 @@
     <ClInclude Include="src\libloader_obj.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\libloader_util.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\libloader_obj.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libloader_util.c">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -13,18 +13,20 @@ extern "C" {
 
 typedef struct
 {
-    size_t num_triangles;
-    float* positions;
-    float* normals;
-    float* texcoords;
+  uint32_t num_vertices;
+  float* positions;
+  float* normals;
+  float* texcoords;
+  uint32_t positions_stride;
+  uint32_t normals_stride;
+  uint32_t texcoords_stride;
 } libload_model_t;
 
 // load OBJ model.
 // On input, model should contain valid pointers to streams the caller wants
 // filled. For example, if 'float* positions' is non-null, positions will be
-// filled in for each vertex.
-// Also, on input, num_verts stores the maximum number of verts the streams
-// can hold.
+// filled in for each vertex. Also, on input, num_verts should be set to
+// the maximum number of verts the streams can hold.
 bool libload_obj(const char* filename, /*inout*/ libload_model_t* model);
 
 #ifdef __cplusplus

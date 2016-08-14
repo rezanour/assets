@@ -5,9 +5,9 @@
 
 #include "..\include\libloader.h"
 #include "libloader_obj.h"
+#include "libloader_util.h"
 
 #include <stdio.h>
-#include <errno.h>
 #include <malloc.h>
 #include <string.h>
 #include <assert.h>
@@ -15,14 +15,11 @@
 bool libload_obj(const char* filename, /*inout*/ libload_model_t* model)
 {
     bool result = false;
-    FILE* file = 0;
-    errno_t err = 0;
-    fpos_t pos = 0;
     char* buffer = 0;
     char* buffer_end = 0;
     char* line = 0;
     char* line_end = 0;
-    size_t bytes_read = 0;
+    size_t buffer_size = 0;
     float* verts = 0;
     float* vert_normals = 0;
     float* vert_texcoords = 0;
@@ -31,50 +28,38 @@ bool libload_obj(const char* filename, /*inout*/ libload_model_t* model)
     size_t num_vert_texcoords = 0;
     char group_name[256] = { 0 };
     char smooth_group[5] = { 0 };
-    size_t max_triangles = model->num_triangles;
+    size_t max_vertices = model->num_vertices;
 
-    err = fopen_s(&file, filename, "rt");
-    if (err != 0)
-        goto cleanup;
+    if (model->positions && model->positions_stride == 0)
+      goto cleanup;
 
-    if (fseek(file, 0, SEEK_END) != 0)
-        goto cleanup;
+    if (model->normals && model->normals_stride == 0)
+      goto cleanup;
 
-    if (fgetpos(file, &pos) != 0)
-        goto cleanup;
+    if (model->texcoords && model->texcoords_stride == 0)
+      goto cleanup;
 
-    if (fseek(file, 0, SEEK_SET) != 0)
-        goto cleanup;
-
-    buffer = (char*)malloc(pos);
+    buffer = read_text_file(filename, &buffer_size);
     if (!buffer)
-        goto cleanup;
+      goto cleanup;
 
-    buffer_end = buffer + pos;
-
-    bytes_read = fread_s(buffer, pos, 1, pos, file);
-    if (bytes_read == 0)
-        goto cleanup;
-
-    // don't need the file handle anymore
-    fclose(file);
-    file = 0;
+    buffer_end = buffer + buffer_size;
 
     // allocate buffers for holding values conservatively (as if the whole file is just this)
-    verts = (float*)malloc(pos / sizeof(float));
+    verts = (float*)malloc(buffer_size / sizeof(float));
     if (!verts)
         goto cleanup;
 
-    vert_normals = (float*)malloc(pos / sizeof(float));
+    vert_normals = (float*)malloc(buffer_size / sizeof(float));
     if (!vert_normals)
         goto cleanup;
 
-    vert_texcoords = (float*)malloc(pos / sizeof(float));
+    vert_texcoords = (float*)malloc(buffer_size / sizeof(float));
     if (!vert_texcoords)
         goto cleanup;
 
     line = buffer;
-    model->num_triangles = 0;
+    model->num_vertices = 0;
     while (line < buffer_end)
     {
         // read one line in by finding the newline & turning into \0
@@ -126,80 +111,74 @@ bool libload_obj(const char* filename, /*inout*/ libload_model_t* model)
 
             if (num_fields < 10)
             {
-                // single triangle
-                if (model->positions)
-                {
-                    model->positions[model->num_triangles * 3] = verts[v[0]];
-                    model->positions[model->num_triangles * 3 + 1] = verts[v[1]];
-                    model->positions[model->num_triangles * 3 + 2] = verts[v[2]];
-                }
-                if (model->texcoords)
-                {
-                    model->texcoords[model->num_triangles * 3] = vert_texcoords[vt[0]];
-                    model->texcoords[model->num_triangles * 3 + 1] = vert_texcoords[vt[1]];
-                    model->texcoords[model->num_triangles * 3 + 2] = vert_texcoords[vt[2]];
-                }
-                if (model->normals)
-                {
-                    model->normals[model->num_triangles * 3] = vert_normals[vn[0]];
-                    model->normals[model->num_triangles * 3 + 1] = vert_normals[vn[1]];
-                    model->normals[model->num_triangles * 3 + 2] = vert_normals[vn[2]];
-                }
+              // enough room left?
+              if (model->num_vertices + 3 > max_vertices)
+                break;
 
-                ++model->num_triangles;
-                if (model->num_triangles == max_triangles)
-                    break;
+              // single triangle
+              if (model->positions)
+              {
+                float* positions = (float*)((uint8_t*)model->positions + model->positions_stride * model->num_vertices);
+                positions[0] = verts[v[0]];
+                positions[1] = verts[v[1]];
+                positions[2] = verts[v[2]];
+              }
+              if (model->texcoords)
+              {
+                float* texcoords = (float*)((uint8_t*)model->texcoords + model->texcoords_stride * model->num_vertices);
+                texcoords[0] = vert_texcoords[vt[0]];
+                texcoords[1] = vert_texcoords[vt[1]];
+                texcoords[2] = vert_texcoords[vt[2]];
+              }
+              if (model->normals)
+              {
+                float* normals = (float*)((uint8_t*)model->normals + model->normals_stride * model->num_vertices);
+                normals[0] = vert_normals[vn[0]];
+                normals[1] = vert_normals[vn[1]];
+                normals[2] = vert_normals[vn[2]];
+              }
+
+              model->num_vertices += 3;
             }
             else
             {
-                // quad
-                if (model->positions)
-                {
-                    model->positions[model->num_triangles * 3] = verts[v[0]];
-                    model->positions[model->num_triangles * 3 + 1] = verts[v[1]];
-                    model->positions[model->num_triangles * 3 + 2] = verts[v[2]];
+              // enough room left?
+              if (model->num_vertices + 6 > max_vertices)
+                break;
 
-                    if (model->num_triangles + 1 < max_triangles)
-                    {
-                        model->positions[model->num_triangles * 3 + 3] = verts[v[0]];
-                        model->positions[model->num_triangles * 3 + 4] = verts[v[2]];
-                        model->positions[model->num_triangles * 3 + 5] = verts[v[3]];
-                    }
-                }
-                if (model->texcoords)
-                {
-                    model->texcoords[model->num_triangles * 3] = vert_texcoords[vt[0]];
-                    model->texcoords[model->num_triangles * 3 + 1] = vert_texcoords[vt[1]];
-                    model->texcoords[model->num_triangles * 3 + 2] = vert_texcoords[vt[2]];
+              // quad
+              if (model->positions)
+              {
+                float* positions = (float*)((uint8_t*)model->positions + model->positions_stride * model->num_vertices);
+                positions[0] = verts[v[0]];
+                positions[1] = verts[v[1]];
+                positions[2] = verts[v[2]];
+                positions[3] = verts[v[0]];
+                positions[4] = verts[v[2]];
+                positions[5] = verts[v[3]];
+              }
+              if (model->texcoords)
+              {
+                float* texcoords = (float*)((uint8_t*)model->texcoords + model->texcoords_stride * model->num_vertices);
+                texcoords[0] = vert_texcoords[vt[0]];
+                texcoords[1] = vert_texcoords[vt[1]];
+                texcoords[2] = vert_texcoords[vt[2]];
+                texcoords[3] = vert_texcoords[vt[0]];
+                texcoords[4] = vert_texcoords[vt[2]];
+                texcoords[5] = vert_texcoords[vt[3]];
+              }
+              if (model->normals)
+              {
+                float* normals = (float*)((uint8_t*)model->normals + model->normals_stride * model->num_vertices);
+                normals[0] = vert_normals[vn[0]];
+                normals[1] = vert_normals[vn[1]];
+                normals[2] = vert_normals[vn[2]];
+                normals[3] = vert_normals[vn[0]];
+                normals[4] = vert_normals[vn[2]];
+                normals[5] = vert_normals[vn[3]];
+              }
 
-                    if (model->num_triangles + 1 < max_triangles)
-                    {
-                        model->texcoords[model->num_triangles * 3 + 3] = vert_texcoords[vt[0]];
-                        model->texcoords[model->num_triangles * 3 + 4] = vert_texcoords[vt[2]];
-                        model->texcoords[model->num_triangles * 3 + 5] = vert_texcoords[vt[3]];
-                    }
-                }
-                if (model->normals)
-                {
-                    model->normals[model->num_triangles * 3] = vert_normals[vn[0]];
-                    model->normals[model->num_triangles * 3 + 1] = vert_normals[vn[1]];
-                    model->normals[model->num_triangles * 3 + 2] = vert_normals[vn[2]];
-
-                    if (model->num_triangles + 1 < max_triangles)
-                    {
-                        model->normals[model->num_triangles * 3 + 3] = vert_normals[vn[0]];
-                        model->normals[model->num_triangles * 3 + 4] = vert_normals[vn[2]];
-                        model->normals[model->num_triangles * 3 + 5] = vert_normals[vn[3]];
-                    }
-                }
-
-                ++model->num_triangles;
-                if (model->num_triangles == max_triangles)
-                    break;
-
-                ++model->num_triangles;
-                if (model->num_triangles == max_triangles)
-                    break;
+              model->num_vertices += 6;
             }
         }
 
@@ -220,9 +199,6 @@ cleanup:
 
     if (buffer)
         free(buffer);
-
-    if (file)
-        fclose(file);
 
     return result;
 }
