@@ -88,11 +88,14 @@ bool libload_obj_load(const char* filename, libload_obj_model_t** out_model)
   {
     // read one line in by finding the newline & turning into \0
     line_end = line;
-    while (line_end < buffer_end && *line_end != '\n')
+    while (line_end < buffer_end && (*line_end != '\n' && *line_end != '\r'))
       ++line_end;
 
-    if (line_end < buffer_end)
+    while ((line_end < buffer_end) && (*line_end == '\n' || *line_end == '\r'))
+    {
       *line_end = '\0';
+      ++line_end;
+    }
 
     // handle line
     if (*line == '#') // comment
@@ -150,6 +153,8 @@ bool libload_obj_load(const char* filename, libload_obj_model_t** out_model)
 
       sscanf_s(line + 7, "%s", current_part->material_name,
         (uint32_t)LIBLOAD_ARRAYSIZE(current_part->material_name));
+
+      _strlwr_s(current_part->material_name, LIBLOAD_ARRAYSIZE(current_part->material_name));
     }
     else if (_strnicmp(line, "s ", 2) == 0) // smooth shading group
     {
@@ -165,7 +170,68 @@ bool libload_obj_load(const char* filename, libload_obj_model_t** out_model)
         &v[2], &vt[2], &vn[2],
         &v[3], &vt[3], &vn[3]);
 
-      if (num_fields == 9)  // single triangle
+      if (num_fields == 1)
+      {
+        // %d//%d format. No texture data
+        num_fields = sscanf_s(line + 2,
+          "%d//%d %d//%d %d//%d %d//%d",
+          &v[0], &vn[0],
+          &v[1], &vn[1],
+          &v[2], &vn[2],
+          &v[3], &vn[3]);
+
+        if (num_fields == 1)
+        {
+          // %d format. only position
+          num_fields = sscanf_s(line + 2,
+            "%d %d %d %d", &v[0], &v[1], &v[2], &v[3]);
+
+          vn[0] = vn[1] = vn[2] = vn[3] = 1;
+        }
+
+        vt[0] = vt[1] = vt[2] = vt[3] = 1;
+      }
+
+      if (num_fields == 2)
+      {
+        // %d/%d format. No normal data
+        num_fields = sscanf_s(line + 2,
+          "%d/%d %d/%d %d/%d %d/%d",
+          &v[0], &vt[0],
+          &v[1], &vt[1],
+          &v[2], &vt[2],
+          &v[3], &vt[3]);
+
+        vn[0] = vn[1] = vn[2] = vn[3] = 1;
+      }
+
+      if (v[0] < 0)
+        v[0] = num_verts + v[0] + 1;
+      if (v[1] < 0)
+        v[1] = num_verts + v[1] + 1;
+      if (v[2] < 0)
+        v[2] = num_verts + v[2] + 1;
+      if (vn[0] < 0)
+        vn[0] = num_vert_normals + vn[0] + 1;
+      if (vn[1] < 0)
+        vn[1] = num_vert_normals + vn[1] + 1;
+      if (vn[2] < 0)
+        vn[2] = num_vert_normals + vn[2] + 1;
+      if (vt[0] < 0)
+        vt[0] = num_vert_texcoords + vt[0] + 1;
+      if (vt[1] < 0)
+        vt[1] = num_vert_texcoords + vt[1] + 1;
+      if (vt[2] < 0)
+        vt[2] = num_vert_texcoords + vt[2] + 1;
+
+      for (int i = 0; i < 4; ++i)
+      {
+        if (v[i] < 1) v[i] = 1;
+        if (vn[i] < 1) vn[i] = 1;
+        if (vt[i] < 1) vt[i] = 1;
+      }
+
+      if (num_fields == 3 || num_fields == 6 || num_fields == 9)  // single triangle
       {
         for (int i = 0; i < 3; ++i)
         {
@@ -196,8 +262,15 @@ bool libload_obj_load(const char* filename, libload_obj_model_t** out_model)
           }
         }
       }
-      else if (num_fields == 12) // quad
+      else if (num_fields == 4 || num_fields == 8 || num_fields == 12) // quad
       {
+        if (v[3] < 0)
+          v[3] = num_verts + v[3] + 1;
+        if (vn[3] < 0)
+          vn[3] = num_vert_normals + vn[3] + 1;
+        if (vt[3] < 0)
+          vt[3] = num_vert_texcoords + vt[3] + 1;
+
         uint32_t order[] = { 0, 1, 2, 0, 2, 3 };
         for (int i = 0; i < 6; ++i)
         {
@@ -237,7 +310,7 @@ bool libload_obj_load(const char* filename, libload_obj_model_t** out_model)
       }
     }
 
-    line = line_end + 1;
+    line = line_end;
   }
 
   if (current_part)
@@ -260,6 +333,84 @@ cleanup:
     free(verts);
   if (buffer)
     free(buffer);
+
+  return result;
+}
+
+bool libload_obj_compute_normals(libload_obj_model_t* model)
+{
+  bool result = false;
+  uint32_t i = 0;
+  uint32_t* num_accum = 0;
+
+  if (!model)
+    goto cleanup;
+
+  num_accum = (uint32_t*)malloc(sizeof(uint32_t) * model->num_vertices);
+  if (!num_accum)
+    goto cleanup;
+
+  memset(num_accum, 0, sizeof(uint32_t) * model->num_vertices);
+
+  for (i = 0; i < model->num_vertices; ++i)
+  {
+    model->vertices[i].normal.x = 0;
+    model->vertices[i].normal.y = 0;
+    model->vertices[i].normal.z = 0;
+  }
+
+  for (i = 0; i < model->num_indices; i += 3)
+  {
+    libload_obj_vertex_t* v0 = &model->vertices[model->indices[i]];
+    libload_obj_vertex_t* v1 = &model->vertices[model->indices[i + 1]];
+    libload_obj_vertex_t* v2 = &model->vertices[model->indices[i + 2]];
+
+    libload_float3_t u, v;
+    libload_float3_t norm;
+    float inv_len;
+
+    u.x = v1->position.x - v0->position.x;
+    u.y = v1->position.y - v0->position.y;
+    u.z = v1->position.z - v0->position.z;
+    v.x = v2->position.x - v0->position.x;
+    v.y = v2->position.y - v0->position.y;
+    v.z = v2->position.z - v0->position.z;
+
+    norm.x = u.y * v.z - u.z * v.y;
+    norm.y = u.z * v.x - u.x * v.z;
+    norm.z = u.x * v.y - u.y * v.x;
+
+    inv_len = 1.f / sqrtf(norm.x * norm.x + norm.y * norm.y + norm.z * norm.z);
+    norm.x *= inv_len;
+    norm.y *= inv_len;
+    norm.z *= inv_len;
+
+    v0->normal.x += norm.x; v0->normal.y += norm.y; v0->normal.z += norm.z;
+    v1->normal.x += norm.x; v1->normal.y += norm.y; v1->normal.z += norm.z;
+    v2->normal.x += norm.x; v2->normal.y += norm.y; v2->normal.z += norm.z;
+
+    ++num_accum[model->indices[i]];
+    ++num_accum[model->indices[i + 1]];
+    ++num_accum[model->indices[i + 2]];
+  }
+
+  // average them out
+  for (i = 0; i < model->num_vertices; ++i)
+  {
+    if (num_accum[i] > 0)
+    {
+      float inv_denom = 1.f / (float)num_accum[i];
+      model->vertices[i].normal.x *= inv_denom;
+      model->vertices[i].normal.y *= inv_denom;
+      model->vertices[i].normal.z *= inv_denom;
+    }
+  }
+
+  result = true;
+
+cleanup:
+  if (num_accum)
+    free(num_accum);
 
   return result;
 }
@@ -318,6 +469,7 @@ bool libload_obj_compute_tangent_space(libload_obj_model_t* model)
     v0->bitangent.x += B.x; v1->bitangent.x += B.x; v2->bitangent.x += B.x;
     v0->bitangent.y += B.y; v1->bitangent.y += B.y; v2->bitangent.y += B.y;
     v0->bitangent.z += B.z; v1->bitangent.z += B.z; v2->bitangent.z += B.z;
+
     ++num_accum[model->indices[i]];
     ++num_accum[model->indices[i + 1]];
     ++num_accum[model->indices[i + 2]];
@@ -435,6 +587,8 @@ bool libload_mtl_load(const char* filename, uint32_t* inout_num_materials, liblo
         current_material = &out_materials[*inout_num_materials];
         sscanf_s(line + 7, "%s", current_material->name,
           (uint32_t)LIBLOAD_ARRAYSIZE(current_material->name));
+
+        _strlwr_s(current_material->name, LIBLOAD_ARRAYSIZE(current_material->name));
       }
       ++(*inout_num_materials);
     }

@@ -18,36 +18,33 @@ char* read_text_file(const char* filename, uint32_t* out_num_bytes)
 {
   errno_t err = 0;
   FILE* file = 0;
-  fpos_t pos = 0;
+  size_t len = 0;
   char* buffer = 0;
 
   *out_num_bytes = 0;
 
-  err = fopen_s(&file, filename, "rt");
+  err = fopen_s(&file, filename, "rb");
   if (err != 0)
     goto cleanup;
 
   if (fseek(file, 0, SEEK_END) != 0)
     goto cleanup;
 
-  if (fgetpos(file, &pos) != 0)
-    goto cleanup;
+  len = ftell(file);
+  rewind(file);
 
-  if (fseek(file, 0, SEEK_SET) != 0)
-    goto cleanup;
-
-  buffer = (char*)malloc(pos);
+  buffer = (char*)malloc(len);
   if (!buffer)
     goto cleanup;
 
-  if (fread_s(buffer, pos, 1, pos, file) == 0)
+  if (fread_s(buffer, len, 1, len, file) != len)
   {
     free(buffer);
     buffer = 0;
     goto cleanup;
   }
 
-  *out_num_bytes = (uint32_t)pos;
+  *out_num_bytes = (uint32_t)len;
 
 cleanup:
   if (file)

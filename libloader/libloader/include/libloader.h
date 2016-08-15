@@ -63,6 +63,7 @@ typedef struct
 } libload_obj_model_t;
 
 bool libload_obj_load(const char* filename, libload_obj_model_t** out_model);
+bool libload_obj_compute_normals(libload_obj_model_t* model);
 bool libload_obj_compute_tangent_space(libload_obj_model_t* model);
 void libload_obj_free(libload_obj_model_t* model);
 

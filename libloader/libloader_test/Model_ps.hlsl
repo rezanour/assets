@@ -13,6 +13,7 @@ float4 main(
   static const float3 LightColor = float3(1.f, 1.f, 1.f);
 
   float4 diffuse = DiffuseMap.Sample(Sampler, texcoord);
+  clip(diffuse.a - 0.5f);
 
   //if (length(tangent) > 0)
   //{

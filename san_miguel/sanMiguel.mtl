@@ -1,0 +1,2636 @@
+## fountain_plants
+
+newmtl Maceta_A
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\Map__71_Mix.png
+	map_bump -bm 0.150000 textures\sanmiguel-fountain_plants\maceta_a_bump.png
+
+newmtl Maceta_Tierra_A
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\maceta_tierra_a_color.png
+
+newmtl Maceta_D2
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\Map__54_Mix.png
+	map_bump -bm 0.150000 textures\sanmiguel-fountain_plants\maceta_d_bump_0.png
+
+newmtl Maceta_Tierra_D
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.588235 0.588235 0.588235
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\maceta_tierra_a_color.png
+
+newmtl Maceta_B
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\Map__59_Mix.png
+	map_bump -bm 0.150000 textures\sanmiguel-fountain_plants\maceta_b_bump.png
+
+newmtl Maceta_Tierra_B
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\maceta_tierra_a_color.png
+
+newmtl Rose_1_Blatt1_
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL17lef1.png
+	map_d textures\sanmiguel-fountain_plants\FL17lef1.png
+
+newmtl Rose_1_Blatt2
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL17lef2.png
+	map_d textures\sanmiguel-fountain_plants\FL17lef2.png
+
+newmtl Rose_1_Blutenb
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL17pet5.png
+	map_d textures\sanmiguel-fountain_plants\FL17pet5.png
+
+newmtl Rose_1_Stil
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL17stm.png
+
+newmtl Rose_1_Kelchbl
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL17lef6.png
+	map_d textures\sanmiguel-fountain_plants\FL17lef6.png
+
+newmtl Rose_1_Kelchco
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL17cnt.png
+
+newmtl Rose_2_Blatt1_
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL17lef3.png
+	map_d textures\sanmiguel-fountain_plants\FL17lef3.png
+
+newmtl Rose_2__Blutenb
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL17pet1.png
+	map_d textures\sanmiguel-fountain_plants\FL17pet1.png
+
+newmtl Rose_2__Stil
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL17stm.png
+
+newmtl Rose_2__Kelch_c
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL17cnt.png
+
+newmtl Rose_2__Kelchbl
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL17lef5.png
+	map_d textures\sanmiguel-fountain_plants\FL17lef5.png
+
+newmtl Rose_3_Blatt2
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL17lef2.png
+	map_d textures\sanmiguel-fountain_plants\FL17lef2.png
+
+newmtl Rose_3_Blutenb
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL17pet2.png
+	map_d textures\sanmiguel-fountain_plants\FL17pet2.png
+
+newmtl Azalea_1_blattg1
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL16lef1.png
+	map_d textures\sanmiguel-fountain_plants\FL16lef1.png
+
+newmtl Azalea_1_Blutenb
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL16pet1.png
+	map_d textures\sanmiguel-fountain_plants\FL16pet1.png
+
+newmtl Azalea_1_leafcal
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL16lef3.png
+	map_d textures\sanmiguel-fountain_plants\FL16lef3.png
+
+newmtl Azalea_1_Stengel
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL16stm.png
+
+newmtl hybrids_blossom
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\impatiens_newguinea_hybrids_petal.png
+	map_d textures\sanmiguel-fountain_plants\impatiens_newguinea_hybrids_petal.png
+
+newmtl hybrids_stem
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\elaeagnus_umbellate_bark.png
+
+newmtl hybrids_Leaf
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\citrus_limon_leaf.png
+	map_d textures\sanmiguel-fountain_plants\citrus_limon_leaf.png
+
+newmtl Pansy_1_blblbac
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL19pe13.png
+	map_d textures\sanmiguel-fountain_plants\FL19pe13.png
+
+newmtl Pansy_1_blbll_c
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL19pe16.png
+	map_d textures\sanmiguel-fountain_plants\FL19pe16.png
+
+newmtl Pansy_1_blblr
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL19pe14.png
+	map_d textures\sanmiguel-fountain_plants\FL19pe14.png
+
+newmtl Pansy_1_blblu_c
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL19pe15.png
+	map_d textures\sanmiguel-fountain_plants\FL19pe15.png
+
+newmtl Pansy_1_Leafsma
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL19lef4.png
+	map_d textures\sanmiguel-fountain_plants\FL19lef4.png
+
+newmtl Pansy_1_Leaf
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL19lef2.png
+	map_d textures\sanmiguel-fountain_plants\FL19lef2.png
+
+newmtl Pansy_1_Leafcop
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL19lef3.png
+	map_d textures\sanmiguel-fountain_plants\FL19lef3.png
+
+newmtl Pansy_1_Stengel
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL19stm.png
+
+newmtl verschaffeltii_stem
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\fittonia_verschaffeltii_bark.png
+
+newmtl verschaffeltii_Leaf1
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL03lef1.png
+	map_d textures\sanmiguel-fountain_plants\FL03lef1.png
+
+newmtl zebrina_stem
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\FL24stm.png
+
+newmtl zebrina_Leaf
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\EU15lef.png
+	map_d textures\sanmiguel-fountain_plants\EU15lef.png
+
+newmtl fragrans_Leaf1
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\dracaena_fragrans_leaf.png
+	map_d textures\sanmiguel-fountain_plants\dracaena_fragrans_leaf.png
+
+newmtl paniceum_stem
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\quercus_rubra_bark.png
+
+newmtl paniceum_Leaf
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\TR02lef5.png
+	map_d textures\sanmiguel-fountain_plants\TR02lef5.png
+
+newmtl Fern_3_Stem
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.960784 0.960784 0.960784
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\HP17stm.png
+
+newmtl Fern_3_Leaf
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.960784 0.960784 0.960784
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\HP17lef2.png
+	map_d textures\sanmiguel-fountain_plants\HP17lef2.png
+
+newmtl brevipedunculata_Leaf1
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\TR14lef1.png
+	map_d textures\sanmiguel-fountain_plants\TR14lef1.png
+
+newmtl brevipedunculata_stem
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\ampelopsis_brevipedunculata_bark.png
+
+newmtl phyllostachya_Leaf1
+	Ns 83.333328
+	Ni 1.000000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\BL05lef2.png
+	map_d textures\sanmiguel-fountain_plants\BL05lef2.png
+
+newmtl phyllostachya_stem
+	Ns 83.333328
+	Ni 1.600000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.000000 0.000000 0.000000
+	Kd 0.698039 0.698039 0.698039
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd textures\sanmiguel-fountain_plants\hypoestes_phyllostachya_bark.png
+
+
+## mesas_patio
+newmtl Sila_Forja_A_Tela
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/tela_silla_b.png 
+	map_Kd textures/sanmiguel/tela_silla_b.png 
+
+newmtl Silla_C_Tela
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/tela_silla_b.png 
+	map_Kd textures/sanmiguel/tela_silla_b.png 
+
+newmtl Standard_7
+	Kd 0.54902 0.54902 0.54902 
+
+newmtl Tela_Mesa_A
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/tela_blanca.png 
+	map_Kd textures/sanmiguel/tela_blanca.png 
+	map_bump -bm 0.002 textures/sanmiguel/tela_blanca.png 
+
+newmtl Silla_C_Madera
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/BWK_1024.png 
+	map_Kd textures/sanmiguel/BWK_1024.png 
+
+newmtl Mesa_Madera
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/Vigas_B.png 
+	map_Kd textures/sanmiguel/Vigas_B.png 
+
+newmtl Sila_Forja_A_Metal
+	Ks 0.2 0.2 0.2 
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/Fierro_A.png 
+	map_Kd textures/sanmiguel/Fierro_A.png 
+	map_bump -bm 0.005 textures/sanmiguel/Fierro_A_Bump.png 
+
+newmtl Sila_Forja_A_Madera
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/wood.3.Bubinga.png 
+	map_Kd textures/sanmiguel/wood.3.Bubinga.png 
+
+
+## tela_mesas
+
+newmtl stand
+	Kd 0.25 0.25 0.25 
+	Ks 0.2 0.2 0.2 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/Fierro_A.png 
+	map_Kd textures/sanmiguel/Fierro_A.png 
+
+	map_bump -bm 0.005 textures/sanmiguel/Fierro_A_Bump.png 
+	 
+
+newmtl base
+	Kd 0.25 0.25 0.25 
+	Ks 0.2 0.2 0.2 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/Fierro_A.png 
+	map_Kd textures/sanmiguel/Fierro_A.png 
+
+	map_bump -bm 0.005 textures/sanmiguel/Fierro_A_Bump.png 
+	 
+
+## sanmiguel
+
+newmtl Pared_SanMiguel_Q4
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_q4.png 
+	map_Kd textures/sanmiguel/muros_q4.png 
+
+newmtl Moldura_Detalle_Escalera
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/cantera_naranja_liso.png 
+	map_Kd textures/sanmiguel/cantera_naranja_liso.png 
+
+newmtl Piso_Patio_Exterior2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/piso_patio_exterior2.png 
+	map_Kd textures/sanmiguel/piso_patio_exterior2.png 
+
+newmtl Escurridera
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/escurridera_color.png 
+	map_Kd textures/sanmiguel/escurridera_color.png 
+	map_bump -bm 0.01 textures/sanmiguel/escurridera_bump.png 
+
+newmtl Pared_SanMiguel_B1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_b1.png 
+	map_Kd textures/sanmiguel/muros_b1.png 
+	map_bump -bm 0.001 textures/sanmiguel/muros_b1.png 
+
+newmtl Pared_SanMiguel_I
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_l.png 
+	map_Kd textures/sanmiguel/muros_l.png 
+
+newmtl Mold_Terraza
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/molduraterraza__color.png 
+	map_Kd textures/sanmiguel/molduraterraza__color.png 
+	map_bump -bm 0.001 textures/sanmiguel/molduraterraza_bump.png 
+
+newmtl Barandal_Detalle_Centro
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/rust_detalle.png 
+	map_Kd textures/sanmiguel/rust_detalle.png 
+	map_bump -bm 0.015 textures/sanmiguel/rust_detalle_bump.png 
+
+newmtl Moldura_Techo
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/moldura_techo.png 
+	map_Kd textures/sanmiguel/moldura_techo.png 
+	map_bump -bm 0.001 textures/sanmiguel/moldura_techo_bump.png 
+
+newmtl DetMoldura_05
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/detmoldura_05_color.png 
+	map_Kd textures/sanmiguel/detmoldura_05_color.png 
+	map_bump -bm 0.01 textures/sanmiguel/detmoldura_05_bump.png 
+
+newmtl Pared_Calle
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/pared_calle.png 
+	map_Kd textures/sanmiguel/pared_calle.png 
+
+newmtl Vidrio
+	Ni 1.5 
+	Ns 200 
+	illum 9 
+	Ka 0.01 0.01 0.01 
+	Ks 1 1 1 
+	Kd 0.01 0.01 0.01 
+	Tf 0 0 0 
+
+newmtl Vigas_Techo_A
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/madera_rustica_2.png 
+	map_Kd textures/sanmiguel/madera_rustica_2.png 
+
+newmtl Pintura_8
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/D30_Smiguel_2003_7758.png 
+	map_Kd textures/sanmiguel/D30_Smiguel_2003_7758.png 
+
+newmtl Columna_A2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/columna_a_color_2.png 
+	map_Kd textures/sanmiguel/columna_a_color_2.png 
+	map_bump -bm 0.001 textures/sanmiguel/columna_a_displacement_3_inv.png 
+
+newmtl Hoja_Seca_2A
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/sm_hoja_c_seca.png 
+	map_Kd textures/sanmiguel/sm_hoja_c_seca.png 
+
+newmtl Pared_SanMiguel_N
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_n.png 
+	map_Kd textures/sanmiguel/muros_n.png 
+
+newmtl Moldura_Volado
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/moldura_volado.png 
+	map_Kd textures/sanmiguel/moldura_volado.png 
+
+newmtl Pintura_7
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/D30_Smiguel_2003_7785.png 
+	map_Kd textures/sanmiguel/D30_Smiguel_2003_7785.png 
+
+newmtl Piso_Interior
+	Kd 0.75 0.75 0.75 
+
+newmtl Pared_SanMiguel_A
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_b.png 
+	map_Kd textures/sanmiguel/muros_b.png 
+
+newmtl techos
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/techo.png 
+	map_Kd textures/sanmiguel/techo.png 
+
+newmtl Pared_SanMiguel_Q2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_q.png 
+	map_Kd textures/sanmiguel/muros_q.png 
+
+newmtl Pared_SanMiguel_F
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_f.png 
+	map_Kd textures/sanmiguel/muros_f.png 
+
+newmtl Pared_SanMiguel_P2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_p_.png 
+	map_Kd textures/sanmiguel/muros_p_.png 
+
+newmtl Pared_SanMiguel_J
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_j.png 
+	map_Kd textures/sanmiguel/muros_j.png 
+
+newmtl Jardinera_1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/jardinera_1_color.png 
+	map_Kd textures/sanmiguel/jardinera_1_color.png 
+	map_bump -bm 0.01 textures/sanmiguel/jardinera_1_displacement_2.png 
+
+newmtl Marco_Puerta
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/madera_barandal_esc_2.png 
+	map_Kd textures/sanmiguel/madera_barandal_esc_2.png 
+	map_bump -bm 0.001 textures/sanmiguel/madera_barandal_esc_2_bump.png 
+
+newmtl Fake_Foco
+	Ni 1.5 
+	Ns 200 
+	illum 9 
+	Ka 0.01 0.01 0.01 
+	Ks 1 1 1 
+	Kd 0.01 0.01 0.01 
+	Tf 0 0 0 
+
+newmtl Det_Moldura_02
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/detmoldura_02_color.png 
+	map_Kd textures/sanmiguel/detmoldura_02_color.png 
+	map_bump -bm 0.01 textures/sanmiguel/detmoldura_02_bump.png 
+
+newmtl Muro_Naranja_Escalera
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_l.png 
+	map_Kd textures/sanmiguel/muros_l.png 
+
+newmtl Pared_SanMiguel_Qpatio
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_q_patio2.png 
+	map_Kd textures/sanmiguel/muros_q_patio2.png 
+
+newmtl Barandal_Postes
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/rust_a1.png 
+	map_Kd textures/sanmiguel/rust_a1.png 
+
+newmtl Pared_SanMiguel_E
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_e.png 
+	map_Kd textures/sanmiguel/muros_e.png 
+
+newmtl Pintura_9
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/D30_Smiguel_2003_7843.png 
+	map_Kd textures/sanmiguel/D30_Smiguel_2003_7843.png 
+
+newmtl Negro
+
+newmtl Jardinera_2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/fuente_piedra_01.png 
+	map_Kd textures/sanmiguel/fuente_piedra_01.png 
+
+newmtl Pintura_15
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/D30_Smiguel_2003_7785.png 
+	map_Kd textures/sanmiguel/D30_Smiguel_2003_7785.png 
+
+newmtl Arco_Frente
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/arco_frente.png 
+	map_Kd textures/sanmiguel/arco_frente.png 
+	map_bump -bm 0.002 textures/sanmiguel/arco_frente_displace_inv.png 
+
+newmtl Puerta_Arco
+	Ks 0.113726 0.113726 0.113726 
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/madera_triplay_01.png 
+	map_Kd textures/sanmiguel/madera_triplay_01.png 
+
+newmtl Vigas_Volados
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/Vigas_A2.png 
+	map_Kd textures/sanmiguel/Vigas_A2.png 
+	map_bump -bm 0.001 textures/sanmiguel/vigas_a2_bump.png 
+
+newmtl Tierra
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/052terresable.png 
+	map_Kd textures/sanmiguel/052terresable.png 
+
+newmtl Vigas_Techo_B
+	Ks 0.0431373 0.0431373 0.0431373 
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/madera_rustica_2.png 
+	map_Kd textures/sanmiguel/madera_rustica_2.png 
+
+newmtl DetMoldura_03
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/detmoldura_03_color.png 
+	map_Kd textures/sanmiguel/detmoldura_03_color.png 
+	map_bump -bm 0.01 textures/sanmiguel/detmoldura_03_bump.png 
+
+newmtl Columna_A3
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/columna_a_color_3.png 
+	map_Kd textures/sanmiguel/columna_a_color_3.png 
+	map_bump -bm 0.001 textures/sanmiguel/columna_a_displacement_3_inv.png 
+
+newmtl Puerta_Agarradera01
+	Ks 0.501961 0.443137 0.372549 
+	Kd 0.337255 0.286275 0.223529 
+
+newmtl Techo_Vigas
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/techo.png 
+	map_Kd textures/sanmiguel/techo.png 
+
+newmtl Moldura2piso
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/moldura2piso_color.png 
+	map_Kd textures/sanmiguel/moldura2piso_color.png 
+	map_bump -bm 0.003 textures/sanmiguel/moldura2piso_bump.png 
+
+newmtl Pintura_5
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/D30_Smiguel_2003_7812.png 
+	map_Kd textures/sanmiguel/D30_Smiguel_2003_7812.png 
+
+newmtl Arcos_Lisos_3
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/arcos_lisos_3_color_1.png 
+	map_Kd textures/sanmiguel/arcos_lisos_3_color_1.png 
+	map_bump -bm 0.015 textures/sanmiguel/arcos_lisos_3_bump_1.png 
+
+newmtl DetMoldura_04
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/detmoldura_04_color.png 
+	map_Kd textures/sanmiguel/detmoldura_04_color.png 
+	map_bump -bm 0.01 textures/sanmiguel/detmoldura_04_bump.png 
+
+newmtl Pintura_Marcos
+	Ks 0.156863 0.156863 0.156863 
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/madera_marcos.png 
+	map_Kd textures/sanmiguel/madera_marcos.png 
+
+newmtl Detalle_Escalera
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/rust_a1.png 
+	map_Kd textures/sanmiguel/rust_a1.png 
+
+newmtl Pintura_6
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/D30_Smiguel_2003_7843.png 
+	map_Kd textures/sanmiguel/D30_Smiguel_2003_7843.png 
+
+newmtl Candil_Madera
+	Ks 0.164706 0.164706 0.164706 
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/candil_madera.png 
+	map_Kd textures/sanmiguel/candil_madera.png 
+
+newmtl Fuente
+	Kd 0.75 0.75 0.75 
+
+newmtl Pintura_13
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/D30_Smiguel_2003_7833.png 
+	map_Kd textures/sanmiguel/D30_Smiguel_2003_7833.png 
+
+newmtl Pintura_2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/D30_Smiguel_2003_7815.png 
+	map_Kd textures/sanmiguel/D30_Smiguel_2003_7815.png 
+
+newmtl Muros
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/pared_barro_afinado.png 
+	map_Kd textures/sanmiguel/pared_barro_afinado.png 
+
+newmtl Columna_B3
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/columna_b_color_3.png 
+	map_Kd textures/sanmiguel/columna_b_color_3.png 
+	map_bump -bm 0.015 textures/sanmiguel/columna_b_displacement_3_inv.png 
+
+newmtl Teja
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/Barro_2.png 
+	map_Kd textures/sanmiguel/Barro_2.png 
+
+newmtl Pared_SanMiguel_K
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_k.png 
+	map_Kd textures/sanmiguel/muros_k.png 
+
+newmtl Piso_Patio_Exterior
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/piso_patio_exterior.png 
+	map_Kd textures/sanmiguel/piso_patio_exterior.png 
+	map_bump -bm 0.02 textures/sanmiguel/piso_patio_exterior_displace_inv.png 
+
+newmtl Pared_SanMiguel_C2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_c2.png 
+	map_Kd textures/sanmiguel/muros_c2.png 
+
+newmtl Pared_SanMiguel_Q
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_q3.png 
+	map_Kd textures/sanmiguel/muros_q3.png 
+
+newmtl Fuente_Centro
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/fuente_piedra_02.png 
+	map_Kd textures/sanmiguel/fuente_piedra_02.png 
+
+newmtl Candil_2_Foco
+	Ni 1.5 
+	Ns 200 
+	illum 9 
+	Ka 0.01 0.01 0.01 
+	Ks 1 1 1 
+	Kd 0.01 0.01 0.01 
+	Tf 0 0 0 
+
+newmtl Columna_B1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/columna_b_color.png 
+	map_Kd textures/sanmiguel/columna_b_color.png 
+	map_bump -bm 0.015 textures/sanmiguel/columna_b_displacement_3_inv.png 
+
+newmtl Pared_SanMiguel_G
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_g.png 
+	map_Kd textures/sanmiguel/muros_g.png 
+
+newmtl Hoja_Seca_2B
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/sm_leaf_seca_02b.png 
+	map_Kd textures/sanmiguel/sm_leaf_seca_02b.png 
+
+newmtl Pintura_10
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/D30_Smiguel_2003_7833.png 
+	map_Kd textures/sanmiguel/D30_Smiguel_2003_7833.png 
+
+newmtl Escalera
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/escalera_color.png 
+	map_Kd textures/sanmiguel/escalera_color.png 
+	map_bump -bm 0.001 textures/sanmiguel/escalera_bump.png 
+
+newmtl Calle
+	Kd 0.54902 0.54902 0.54902 
+
+newmtl Vigas_Concreto
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/concreto_02.png 
+	map_Kd textures/sanmiguel/concreto_02.png 
+
+newmtl Arcos_Lisos_2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/arcos_lisos_2_color.png 
+	map_Kd textures/sanmiguel/arcos_lisos_2_color.png 
+	map_bump -bm 0.015 textures/sanmiguel/arcos_lisos_2_bump.png 
+
+newmtl Candil_2
+	Ks 0.301961 0.301961 0.301961 
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/metal_viejo_2.png 
+	map_Kd textures/sanmiguel/metal_viejo_2.png 
+	map_bump -bm 0.002 textures/sanmiguel/metal_viejo_2.png 
+
+newmtl Hoja_Seca_2C
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/sm_leaf_seca_03b.png 
+	map_Kd textures/sanmiguel/sm_leaf_seca_03b.png 
+
+newmtl Pintura_4
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/D30_Smiguel_2003_7833.png 
+	map_Kd textures/sanmiguel/D30_Smiguel_2003_7833.png 
+
+newmtl Candil_Foco
+	Ni 1.5 
+	Ns 200 
+	illum 9 
+	Ka 0.01 0.01 0.01 
+	Ks 1 1 1 
+	Kd 0.01 0.01 0.01 
+	Tf 0 0 0 
+
+newmtl Pared_SanMiguel_B
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_a.png 
+	map_Kd textures/sanmiguel/muros_a.png 
+
+newmtl Banqueta
+	Kd 0.54902 0.54902 0.54902 
+
+newmtl Pintura_12
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/027_Cola Caballo 06-30-1997.png 
+	map_Kd textures/sanmiguel/027_Cola Caballo 06-30-1997.png 
+
+newmtl Puerta_Agarradera
+	Kd 0.392157 0.368627 0.341176 
+
+newmtl Madera_Barandal
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/madera_barandal_esc_2.png 
+	map_Kd textures/sanmiguel/madera_barandal_esc_2.png 
+
+newmtl Pared_SanMiguel_B2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_b2.png 
+	map_Kd textures/sanmiguel/muros_b2.png 
+
+newmtl Azotea
+	Kd 0.54902 0.54902 0.54902 
+
+newmtl Candil_2__Negro
+	Ks 0.301961 0.301961 0.301961 
+	Kd 0.0588235 0.0588235 0.0588235 
+
+newmtl Moldura_Techo_arcos
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/moldura_volado.png 
+	map_Kd textures/sanmiguel/moldura_volado.png 
+
+newmtl Pintura_11
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/D30_Smiguel_2003_7768.png 
+	map_Kd textures/sanmiguel/D30_Smiguel_2003_7768.png 
+
+newmtl Pared_SanMiguel_D
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_d.png 
+	map_Kd textures/sanmiguel/muros_d.png 
+
+newmtl Agua
+	Ni 1.33 
+	Ns 200 
+	illum 9 
+	Ka 0.01 0.01 0.01 
+	Ks 1 1 1 
+	Kd 0.01 0.01 0.01 
+	Tf 0 0 0 
+
+newmtl Techos_2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/techo_01.png 
+	map_Kd textures/sanmiguel/techo_01.png 
+
+newmtl Pared_SanMiguel_M
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_m.png 
+	map_Kd textures/sanmiguel/muros_m.png 
+
+newmtl Columna_A1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/columna_a_color.png 
+	map_Kd textures/sanmiguel/columna_a_color.png 
+	map_bump -bm 0.001 textures/sanmiguel/columna_a_displacement_3_inv.png 
+
+newmtl Barandal_Detalle_Extremos
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/rust_a1.png 
+	map_Kd textures/sanmiguel/rust_a1.png 
+
+newmtl Piso_Patio_Exterior_Concreto
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/concreto_01.png 
+	map_Kd textures/sanmiguel/concreto_01.png 
+
+newmtl Pintura_14
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/D30_Smiguel_2003_7833.png 
+	map_Kd textures/sanmiguel/D30_Smiguel_2003_7833.png 
+
+newmtl Pared_SanMiguel_H
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/muros_h.png 
+	map_Kd textures/sanmiguel/muros_h.png 
+
+newmtl Candil_2_Glass
+	Ni 1.5 
+	Ns 200 
+	illum 9 
+	Ka 0.01 0.01 0.01 
+	Ks 1 1 1 
+	Kd 0.01 0.01 0.01 
+	Tf 0 0 0 
+
+newmtl Det_Moldura_01
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/detmoldura_01_color.png 
+	map_Kd textures/sanmiguel/detmoldura_01_color.png 
+	map_bump -bm 0.01 textures/sanmiguel/detmoldura_01_bump.png 
+
+newmtl Pintura_1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/0001_carros.png 
+	map_Kd textures/sanmiguel/0001_carros.png 
+
+newmtl Piso_Pasillos_Arriba
+	Ks 0.25 0.25 0.25 
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/piso_rustico.png 
+	map_Kd textures/sanmiguel/piso_rustico.png 
+	map_Ks textures/sanmiguel/piso_rustico_Spec.png 
+	map_bump -bm 0.012 textures/sanmiguel/piso_rustico_displace2.png 
+
+newmtl Columna_B2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/columna_b_color_2.png 
+	map_Kd textures/sanmiguel/columna_b_color_2.png 
+	map_bump -bm 0.015 textures/sanmiguel/columna_b_displacement_3_inv.png 
+
+newmtl Fuente_Fondo
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/fuente_azulejo.png 
+	map_Kd textures/sanmiguel/fuente_azulejo.png 
+
+newmtl Candil_Cadena
+	Ks 0.313726 0.313726 0.313726 
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/fierro_b.png 
+	map_Kd textures/sanmiguel/fierro_b.png 
+
+newmtl Pintura_3
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/D30_Smiguel_2003_7812.png 
+	map_Kd textures/sanmiguel/D30_Smiguel_2003_7812.png 
+
+newmtl DetMoldura_06
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/detmoldura_06_color.png 
+	map_Kd textures/sanmiguel/detmoldura_06_color.png 
+	map_bump -bm 0.01 textures/sanmiguel/detmoldura_06_bump.png 
+
+newmtl Losa_Volados
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/losa.png 
+	map_Kd textures/sanmiguel/losa.png 
+
+newmtl Puerta_01
+	Ks 0.0431373 0.0431373 0.0431373 
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/puerta.png 
+	map_Kd textures/sanmiguel/puerta.png 
+	map_bump -bm 0.01 textures/sanmiguel/puerta_bump.png 
+
+newmtl Postes_Barandal
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/postes_barandal_color.png 
+	map_Kd textures/sanmiguel/postes_barandal_color.png 
+	map_bump -bm 0.015 textures/sanmiguel/postes_barandal_bump.png 
+
+newmtl Marco_Puerta_1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/marco_puerta_1.png 
+	map_Kd textures/sanmiguel/marco_puerta_1.png 
+	map_bump -bm 0.01 textures/sanmiguel/marco_puerta_1_bump.png 
+
+newmtl Candil_Metal
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/fierro_b.png 
+	map_Kd textures/sanmiguel/fierro_b.png 
+
+newmtl Mold_Arco_01
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/mold_arco_01_color.png 
+	map_Kd textures/sanmiguel/mold_arco_01_color.png 
+	map_bump -bm 0.001 textures/sanmiguel/mold_arco_01_bump.png 
+
+
+## platos
+newmtl VidrioSalero 
+
+	Ni 1.5 
+	Ns 200 
+	illum 9 
+	Ka 0.01 0.01 0.01 
+	Ks 1 1 1 
+	Kd 0.01 0.01 0.01 
+	Tf 0 0 0 
+
+
+newmtl Vela 
+	Ks 0.321569 0.321569 0.321569 
+	Kd 0.776471 0.756863 0.721569 
+
+
+newmtl Copas 
+
+	Ni 1.5 
+	Ns 200 
+	illum 9 
+	Ka 0.01 0.01 0.01 
+	Ks 0.545098 0.545098 0.545098 
+	Kd 0.01 0.01 0.01 
+	Tf 0 0 0 
+
+
+newmtl Base Vela Color 
+	Kd 0.25 0.25 0.25 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/ceramic_tile.png 
+	map_Kd textures/sanmiguel/ceramic_tile.png 
+
+
+newmtl Sal 
+	Kd 0.776471 0.74902 0.709804 
+
+	map_bump -bm 0.2 textures/sanmiguel/PITTED.png 
+
+
+
+newmtl Vela Mecha 
+	Kd 0.121569 0.113726 0.101961 
+
+
+newmtl Cenicero 
+	Ks 0.215686 0.215686 0.215686 
+	Kd 0.25 0.25 0.25 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/cenicero.png 
+	map_Kd textures/sanmiguel/cenicero.png 
+
+
+newmtl Plastico Cubiertos 
+
+	Ni 1.5 
+	Ns 200 
+	illum 9 
+	Ka 0.01 0.01 0.01 
+	Ks 1 1 1 
+	Kd 0.01 0.01 0.01 
+	Tf 0.305882 0.149019 0 
+
+
+newmtl Individual Verde 
+	Kd 0.25 0.25 0.25 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/individual_b.png 
+	map_Kd textures/sanmiguel/individual_b.png 
+
+
+newmtl Plato A 
+	Ks 0.129412 0.129412 0.129412 
+	Kd 0.25 0.25 0.25 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/plato_a.png 
+	map_Kd textures/sanmiguel/plato_a.png 
+
+
+newmtl Cromo 
+	Ks 0.898039 0.807843 0.709804 
+	Kd 0.0862745 0.0823529 0.0745098 
+
+
+newmtl Pimienta 
+	Kd 0.5 0.5 0.5 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/PITTED.png 
+	map_Kd textures/sanmiguel/PITTED.png 
+
+	map_bump -bm 0.8 textures/sanmiguel/PITTED.png 
+
+
+
+## mesas_arriba
+newmtl Silla Tela 
+	Kd 0.5 0.5 0.5 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/Finishes.Flooring.Carpet.Loop.5.png 
+	map_Kd textures/sanmiguel/Finishes.Flooring.Carpet.Loop.5.png 
+
+	map_bump -bm 0.001 textures/sanmiguel/Finishes.Flooring.Carpet.Loop.5.png 
+
+
+
+newmtl Madera Mesa Arriba 
+	Ks 0.25 0.25 0.25 
+	Kd 0.25 0.25 0.25 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/BWK_1024.png 
+	map_Kd textures/sanmiguel/BWK_1024.png 
+
+	map_Ks textures/sanmiguel/bwk_1024_Spec2.png 
+
+	map_bump -bm 0.001 textures/sanmiguel/bwk_1024_Bump.png 
+
+
+
+newmtl Madera Silla 
+	Ks 0.243137 0.243137 0.243137 
+	Kd 0.25 0.25 0.25 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/WOOD08.png 
+	map_Kd textures/sanmiguel/WOOD08.png 
+
+	map_bump -bm 0.002 textures/sanmiguel/WOOD08_Bump.png 
+
+
+
+## mesas_abajo
+
+newmtl Mesa D Madera Patas 
+	Kd 0.25 0.25 0.25 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/WOOD08.png 
+	map_Kd textures/sanmiguel/WOOD08.png 
+
+	map_bump -bm 0.015 textures/sanmiguel/WOOD08_Bump.png 
+
+
+
+newmtl Silla D Tachuelas 
+	Ks 0.25 0.25 0.25 
+	Kd 0.25 0.25 0.25 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/Fierro_A.png 
+	map_Kd textures/sanmiguel/Fierro_A.png 
+
+	map_Ks textures/sanmiguel/Fierro_A_Bump.png 
+
+	map_bump -bm 0.01 textures/sanmiguel/Fierro_A_Bump.png 
+
+
+
+newmtl Silla D Madera 
+	Ks 0.156863 0.156863 0.156863 
+	Kd 0.25 0.25 0.25 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/WOOD08.png 
+	map_Kd textures/sanmiguel/WOOD08.png 
+
+	map_bump -bm 0.015 textures/sanmiguel/WOOD08_Bump.png 
+
+
+
+newmtl Silla D Piel 
+	Ks 0.0784314 0.0784314 0.0784314 
+	Kd 0.25 0.25 0.25 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/silla_d_piel.png 
+	map_Kd textures/sanmiguel/silla_d_piel.png 
+
+	map_bump -bm 0.005 textures/sanmiguel/silla_d_piel_bump.png 
+
+
+
+newmtl Tela Mesa D 
+	Kd 0.5 0.5 0.5 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/tela_mesa_b.png 
+	map_Kd textures/sanmiguel/tela_mesa_b.png 
+
+
+newmtl Mesa D Madera Orilla 
+	Kd 0.25 0.25 0.25 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/WOOD08.png 
+	map_Kd textures/sanmiguel/WOOD08.png 
+
+	map_bump -bm 0.015 textures/sanmiguel/WOOD08_Bump.png 
+
+
+
+newmtl Tela Mesa D 2 
+	Kd 0.5 0.5 0.5 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/tela_mesa_d.png 
+	map_Kd textures/sanmiguel/tela_mesa_d.png 
+
+
+newmtl Mesa D Talabera 
+	Kd 0.25 0.25 0.25 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/tapa_talabera.png 
+	map_Kd textures/sanmiguel/tapa_talabera.png 
+
+
+## macetas
+newmtl Maceta_C 
+	Kd 0.5 0.5 0.5 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/Maceta_C_Color.png 
+	map_Kd textures/sanmiguel/Maceta_C_Color.png 
+
+	map_bump -bm 0.005 textures/sanmiguel/Maceta_C_Bump.png 
+
+
+
+newmtl Maceta_D2 
+	Kd 0.5 0.5 0.5 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/Maceta_D2_Color_0.png 
+	map_Kd textures/sanmiguel/Maceta_D2_Color_0.png 
+
+	map_bump -bm 0.005 textures/sanmiguel/Maceta_D_Bump_0.png 
+
+
+
+newmtl Maceta_B 
+	Kd 0.5 0.5 0.5 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/Maceta_B_Color.png 
+	map_Kd textures/sanmiguel/Maceta_B_Color.png 
+
+	map_bump -bm 0.01 textures/sanmiguel/Maceta_B_Bump.png 
+
+
+
+newmtl Maceta_B2 
+	Kd 0.5 0.5 0.5 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/Maceta_B2_Color.png 
+	map_Kd textures/sanmiguel/Maceta_B2_Color.png 
+
+	map_bump -bm 0.005 textures/sanmiguel/Maceta_B_Bump.png 
+
+
+
+newmtl Maceta_A 
+	Kd 0.5 0.5 0.5 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/Maceta_A_Color.png 
+	map_Kd textures/sanmiguel/Maceta_A_Color.png 
+
+	map_bump -bm 0.005 textures/sanmiguel/Maceta_A_Bump.png 
+
+
+
+newmtl Maceta_C2 
+	Kd 0.5 0.5 0.5 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/Maceta_C2_Color.png 
+	map_Kd textures/sanmiguel/Maceta_C2_Color.png 
+
+	map_bump -bm 0.02 textures/sanmiguel/Maceta_C_Bump.png 
+
+
+
+newmtl Forja_Macetas 
+	Ks 0.164706 0.164706 0.164706 
+	Kd 0.25 0.25 0.25 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/Forja_Macetas.png 
+	map_Kd textures/sanmiguel/Forja_Macetas.png 
+
+	map_bump -bm 0.02 textures/sanmiguel/Forja_Macetas_bump.png 
+
+
+
+newmtl Maceta_A2 
+	Kd 0.5 0.5 0.5 
+
+	Clamp on 
+	map_Ka textures/sanmiguel/Maceta_A2_Color.png 
+	map_Kd textures/sanmiguel/Maceta_A2_Color.png 
+
+	map_bump -bm 0.005 textures/sanmiguel/Maceta_A_Bump.png 
+
+
+
+## enredadera
+newmtl Tronco
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/bark06mi.png 
+	map_Kd textures/sanmiguel/bark06mi.png 
+	map_bump -bm 0.5 textures/sanmiguel/bark06mi.png 
+
+newmtl Hojas_Rojas_top
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/l04-upper.png 
+	map_Kd textures/sanmiguel/l04-upper.png 
+	map_bump -bm 0.1 textures/sanmiguel/l04-upper.png 
+	map_d textures/sanmiguel/l04-clip.png 
+
+newmtl Hoja_Verde_B
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/l33-upper.png 
+	map_Kd textures/sanmiguel/l33-upper.png 
+	map_bump -bm 0.1 textures/sanmiguel/l33-upper.png 
+	map_d textures/sanmiguel/l33-clip.png 
+
+newmtl Hoja_Verde_A
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/l37-upper.png 
+	map_Kd textures/sanmiguel/l37-upper.png 
+	map_bump -bm 0.1 textures/sanmiguel/l37-upper.png 
+	map_d textures/sanmiguel/l37-clip.png 
+
+
+## arbol
+
+newmtl Leave_A_a
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/sm_leaf_02a.png 
+	map_Kd textures/sanmiguel/sm_leaf_02a.png 
+	map_bump -bm 0.01 textures/sanmiguel/sm_leaf_02_bump.png 
+
+newmtl Tronco
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/sm_tronco.png 
+	map_Kd textures/sanmiguel/sm_tronco.png 
+	map_bump -bm 0.02 textures/sanmiguel/sm_tronco_bump.png 
+
+
+newmtl Leave_A_b
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/sm_leaf_02b.png 
+	map_Kd textures/sanmiguel/sm_leaf_02b.png 
+	map_bump -bm 0.01 textures/sanmiguel/sm_leaf_02_bump.png 
+
+
+newmtl Leave_A_c
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/sm_leaf_03a.png 
+	map_Kd textures/sanmiguel/sm_leaf_03a.png 
+	map_bump -bm 0.01 textures/sanmiguel/sm_leaf_02_bump.png 
+
+
+## plantas
+newmtl Dracaena_2_Segme01
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP07stm1.png 
+	map_Kd textures/sanmiguel/HP07stm1.png 
+
+newmtl Dutch_Iris_fl1inne_B
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL11pet2.png 
+	map_Kd textures/sanmiguel/FL11pet2.png 
+
+newmtl Azalea_2_Blutenb
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL16pet1.png 
+	map_Kd textures/sanmiguel/FL16pet1.png 
+
+newmtl Ivy_1_Tree
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP13stm2.png 
+	map_Kd textures/sanmiguel/HP13stm2.png 
+
+newmtl Ficus_1_Stem1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP11stm.png 
+	map_Kd textures/sanmiguel/HP11stm.png 
+	map_bump -bm 40 textures/sanmiguel/HP11stm.png 
+
+newmtl Cinquefoil_1_kelchgr
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL15cnt2.png 
+	map_Kd textures/sanmiguel/FL15cnt2.png 
+
+newmtl Cercis_trunk
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/BS01brk.png 
+	map_Kd textures/sanmiguel/BS01brk.png 
+
+newmtl Poinsettia_1_smallre
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL29pet2.png 
+	map_Kd textures/sanmiguel/FL29pet2.png 
+
+newmtl Lilium_BluBlat
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL12pet1.png 
+	map_Kd textures/sanmiguel/FL12pet1.png 
+
+newmtl Dutch_Iris_fl1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL11pet1.png 
+	map_Kd textures/sanmiguel/FL11pet1.png 
+
+newmtl Dracaena_2_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP07lef1.png 
+	map_Kd textures/sanmiguel/HP07lef1.png 
+
+newmtl Ivy_3_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP13lef3.png 
+	map_Kd textures/sanmiguel/HP13lef3.png 
+
+newmtl Lilium_head_Blatt2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL12lef1.png 
+	map_Kd textures/sanmiguel/FL12lef1.png 
+
+newmtl Azalea_2_blattg1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL16lef1.png 
+	map_Kd textures/sanmiguel/FL16lef1.png 
+
+newmtl Rose_2__Kelch_c
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17cnt.png 
+	map_Kd textures/sanmiguel/FL17cnt.png 
+
+newmtl Fern_3_Stem1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP17stm.png 
+	map_Kd textures/sanmiguel/HP17stm.png 
+
+newmtl Dutch_Iris_fl2inne
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL11pet4.png 
+	map_Kd textures/sanmiguel/FL11pet4.png 
+
+newmtl Geranium_1_Flowerc
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL13lef5.png 
+	map_Kd textures/sanmiguel/FL13lef5.png 
+
+newmtl Cinquefoil_1_Revo
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL15cnt1.png 
+	map_Kd textures/sanmiguel/FL15cnt1.png 
+
+newmtl Lilium_head_Stengel1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL12pis1.png 
+	map_Kd textures/sanmiguel/FL12pis1.png 
+
+newmtl Ivy_2_Tree
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP13stm2.png 
+	map_Kd textures/sanmiguel/HP13stm2.png 
+
+newmtl Azalea_1_leafcal
+	Clamp on 
+	map_Ka textures/sanmiguel/FL16lef3.png 
+	map_Kd textures/sanmiguel/FL16lef3.png 
+
+newmtl Cinquefoil_1_Leafg1_
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL15pet2.png 
+	map_Kd textures/sanmiguel/FL15pet2.png 
+
+newmtl hybrids_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/citrus_limon_leaf.png 
+	map_Kd textures/sanmiguel/citrus_limon_leaf.png 
+
+newmtl Cercis_CE1c01
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/BS01flo1.png 
+	map_Kd textures/sanmiguel/BS01flo1.png 
+
+newmtl Default_Stengel
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL04stm.png 
+	map_Kd textures/sanmiguel/FL04stm.png 
+
+newmtl hybrids_stem
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/elaeagnus_umbellate_bark.png 
+	map_Kd textures/sanmiguel/elaeagnus_umbellate_bark.png 
+
+newmtl Chusan_Palm_1_Base
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP19stm2.png 
+	map_Kd textures/sanmiguel/HP19stm2.png 
+
+newmtl Oxeye_Daisy_Blutenk
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL04cnt2.png 
+	map_Kd textures/sanmiguel/FL04cnt2.png 
+
+newmtl Dutch_Iris_Leaf_B
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL11lef1.png 
+	map_Kd textures/sanmiguel/FL11lef1.png 
+
+newmtl Geranium_1_blbl1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL13pet1.png 
+	map_Kd textures/sanmiguel/FL13pet1.png 
+
+newmtl Rose_1_Kelchbl
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17lef6.png 
+	map_Kd textures/sanmiguel/FL17lef6.png 
+
+newmtl Dutch_Iris_fl2_B
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL11pet3.png 
+	map_Kd textures/sanmiguel/FL11pet3.png 
+
+newmtl Fern_1_Fan
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP17lef1.png 
+	map_Kd textures/sanmiguel/HP17lef1.png 
+
+newmtl Dutch_Iris_fl1inne
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL11pet2.png 
+	map_Kd textures/sanmiguel/FL11pet2.png 
+
+newmtl Rose_1_Blatt1_
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17lef1.png 
+	map_Kd textures/sanmiguel/FL17lef1.png 
+
+newmtl Mona_Lisa_1_petal11
+	Clamp on 
+	map_Ka textures/sanmiguel/HP01pet1.png 
+	map_Kd textures/sanmiguel/HP01pet1.png 
+
+newmtl fragrans_Leaf1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/dracaena_fragrans_leaf.png 
+	map_Kd textures/sanmiguel/dracaena_fragrans_leaf.png 
+
+newmtl Mona_Lisa_1_Flowerb
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP01stm1.png 
+	map_Kd textures/sanmiguel/HP01stm1.png 
+
+newmtl Cinquefoil_1_Blatt1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL15lef1.png 
+	map_Kd textures/sanmiguel/FL15lef1.png 
+
+newmtl Geranium_1_Kelchbl
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL13lef4.png 
+	map_Kd textures/sanmiguel/FL13lef4.png 
+
+newmtl pendula_Leaf1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP04lef2.png 
+	map_Kd textures/sanmiguel/HP04lef2.png 
+
+newmtl Dutch_Iris_flB
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL11pet1.png 
+	map_Kd textures/sanmiguel/FL11pet1.png 
+
+newmtl Poinsettia_2_leaftru
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL29twg.png 
+	map_Kd textures/sanmiguel/FL29twg.png 
+
+newmtl Rose_2__Stil
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17stm.png 
+	map_Kd textures/sanmiguel/FL17stm.png 
+
+newmtl Ficus_1_Leaf1
+	Ks 0.117647 0.117647 0.117647 
+	Kd 0.25 0.25 0.25 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP11lef2.png 
+	map_Kd textures/sanmiguel/HP11lef2.png 
+	map_bump -bm 0.02 textures/sanmiguel/hp13lef1_bump.png 
+
+newmtl Ivy_2_Leaf2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP13lef2.png 
+	map_Kd textures/sanmiguel/HP13lef2.png 
+
+newmtl Ivy_1_Leaf
+	Ks 0.176471 0.176471 0.176471 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP13lef1.png 
+	map_Kd textures/sanmiguel/HP13lef1.png 
+	map_bump -bm 0.002 textures/sanmiguel/hp13lef1_bump.png 
+
+newmtl Mona_Lisa_1_Branch1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP01stm1.png 
+	map_Kd textures/sanmiguel/HP01stm1.png 
+
+newmtl Dutch_Iris_fl2inne_B
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL11pet4.png 
+	map_Kd textures/sanmiguel/FL11pet4.png 
+
+newmtl Mona_Lisa_1_Branch3
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP01stm2.png 
+	map_Kd textures/sanmiguel/HP01stm2.png 
+
+newmtl Rose_1_Kelchco
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17cnt.png 
+	map_Kd textures/sanmiguel/FL17cnt.png 
+
+newmtl Poinsettia_1_Tree2_c
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL29twg.png 
+	map_Kd textures/sanmiguel/FL29twg.png 
+
+newmtl Rose_2__Blutenb
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17pet1.png 
+	map_Kd textures/sanmiguel/FL17pet1.png 
+
+newmtl Rose_1_Blutenb
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17pet5.png 
+	map_Kd textures/sanmiguel/FL17pet5.png 
+
+newmtl Pansy_1_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL19lef2.png 
+	map_Kd textures/sanmiguel/FL19lef2.png 
+
+newmtl phyllostachya_Leaf1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/BL05lef2.png 
+	map_Kd textures/sanmiguel/BL05lef2.png 
+
+newmtl zebrina_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/EU15lef.png 
+	map_Kd textures/sanmiguel/EU15lef.png 
+
+newmtl Cercis_CE01
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/BS01flo2.png 
+	map_Kd textures/sanmiguel/BS01flo2.png 
+
+newmtl Pansy_1_blblbac
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL19pe13.png 
+	map_Kd textures/sanmiguel/FL19pe13.png 
+
+newmtl Poinsettia_2_smallre
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL29pet2.png 
+	map_Kd textures/sanmiguel/FL29pet2.png 
+
+newmtl Azalea_1_blattg1
+	Ks 0.262745 0.262745 0.262745 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17lef2.png 
+	map_Kd textures/sanmiguel/FL17lef2.png 
+
+newmtl Poinsettia_1_Tree
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL29stm1.png 
+	map_Kd textures/sanmiguel/FL29stm1.png 
+
+newmtl phyllostachya_stem
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/hypoestes_phyllostachya_bark.png 
+	map_Kd textures/sanmiguel/hypoestes_phyllostachya_bark.png 
+
+newmtl Rose_3_Blatt2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17lef2.png 
+	map_Kd textures/sanmiguel/FL17lef2.png 
+
+newmtl Pansy_1_blbll_c
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL19pe16.png 
+	map_Kd textures/sanmiguel/FL19pe16.png 
+
+newmtl Cinquefoil_1_Leafg1c
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL15lef2.png 
+	map_Kd textures/sanmiguel/FL15lef2.png 
+
+newmtl Lilium_Stil
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL12stm.png 
+	map_Kd textures/sanmiguel/FL12stm.png 
+
+newmtl Rose_1_Stil
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17stm.png 
+	map_Kd textures/sanmiguel/FL17stm.png 
+
+newmtl brevipedunculata_stem
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/ampelopsis_brevipedunculata_bark.png 
+	map_Kd textures/sanmiguel/ampelopsis_brevipedunculata_bark.png 
+
+newmtl Azalea_1_Stengel
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL16stm.png 
+	map_Kd textures/sanmiguel/FL16stm.png 
+
+newmtl Rose_1_Blatt2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17lef2.png 
+	map_Kd textures/sanmiguel/FL17lef2.png 
+
+newmtl Pansy_1_Leafcop
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL19lef3.png 
+	map_Kd textures/sanmiguel/FL19lef3.png 
+
+newmtl brevipedunculata_Leaf1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/TR14lef1.png 
+	map_Kd textures/sanmiguel/TR14lef1.png 
+
+newmtl Mona_Lisa_1_Leaf1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP01lef2.png 
+	map_Kd textures/sanmiguel/HP01lef2.png 
+
+newmtl Mona_Lisa_1_flowerc
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP01pet3.png 
+	map_Kd textures/sanmiguel/HP01pet3.png 
+
+newmtl Lagerstroemia_leaves
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/BS04lef.png 
+	map_Kd textures/sanmiguel/BS04lef.png 
+
+newmtl Oxeye_Daisy_Blutenb
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL04pet1.png 
+	map_Kd textures/sanmiguel/FL04pet1.png 
+
+newmtl Mona_Lisa_1_Horn1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP01stm2.png 
+	map_Kd textures/sanmiguel/HP01stm2.png 
+
+newmtl Chusan_Palm3_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP19lef2.png 
+	map_Kd textures/sanmiguel/HP19lef2.png 
+
+newmtl Rose_2_Blatt1_
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17lef3.png 
+	map_Kd textures/sanmiguel/FL17lef3.png 
+
+newmtl Lilium_head_Size_Mitte
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL12stm.png 
+	map_Kd textures/sanmiguel/FL12stm.png 
+
+newmtl Poinsettia_1_bloss01
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL29cnt2.png 
+	map_Kd textures/sanmiguel/FL29cnt2.png 
+
+newmtl Oxeye_Daisy_Simple
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL04cnt1.png 
+	map_Kd textures/sanmiguel/FL04cnt1.png 
+
+newmtl Geranium_1_blbl2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL13pet2.png 
+	map_Kd textures/sanmiguel/FL13pet2.png 
+
+newmtl Pansy_1_Leafsma
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL19lef4.png 
+	map_Kd textures/sanmiguel/FL19lef4.png 
+
+newmtl Dracaena_2_Leaf2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP07lef2.png 
+	map_Kd textures/sanmiguel/HP07lef2.png 
+
+newmtl verschaffeltii_Leaf1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL03lef1.png 
+	map_Kd textures/sanmiguel/FL03lef1.png 
+
+newmtl Azalea_1_Blutenb
+	Clamp on 
+	map_Ka textures/sanmiguel/FL16pet1.png 
+	map_Kd textures/sanmiguel/FL16pet1.png 
+
+newmtl Geranium_1_Stem1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL13stm.png 
+	map_Kd textures/sanmiguel/FL13stm.png 
+
+newmtl Lagerstroemia_petals
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/BS04flo.png 
+	map_Kd textures/sanmiguel/BS04flo.png 
+
+newmtl Lilium_Stengel
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL12pis1.png 
+	map_Kd textures/sanmiguel/FL12pis1.png 
+
+newmtl Poinsettia_2_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL29lef.png 
+	map_Kd textures/sanmiguel/FL29lef.png 
+
+newmtl Lagerstroemia_base
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/BS04brk.png 
+	map_Kd textures/sanmiguel/BS04brk.png 
+
+newmtl Default_wchrype
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL29stm2.png 
+	map_Kd textures/sanmiguel/FL29stm2.png 
+
+newmtl Poinsettia_1_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL29lef.png 
+	map_Kd textures/sanmiguel/FL29lef.png 
+
+newmtl Azalea_2_leafcal
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL16lef3.png 
+	map_Kd textures/sanmiguel/FL16lef3.png 
+
+newmtl Cinquefoil_1_S1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL15stm.png 
+	map_Kd textures/sanmiguel/FL15stm.png 
+
+newmtl Oxeye_Daisy_blattk1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL04lef2.png 
+	map_Kd textures/sanmiguel/FL04lef2.png 
+
+newmtl paniceum_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/TR02lef5.png 
+	map_Kd textures/sanmiguel/TR02lef5.png 
+
+newmtl Mona_Lisa_1_petal12
+	Clamp on 
+	map_Ka textures/sanmiguel/HP01pet1.png 
+	map_Kd textures/sanmiguel/HP01pet1.png 
+
+newmtl Lilium_head_BluBlatt1_
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL12pet2.png 
+	map_Kd textures/sanmiguel/FL12pet2.png 
+
+newmtl Dutch_Iris_fl2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL11pet3.png 
+	map_Kd textures/sanmiguel/FL11pet3.png 
+
+newmtl Chusan_Palm_2_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP19lef3.png 
+	map_Kd textures/sanmiguel/HP19lef3.png 
+
+newmtl Cercis_leaves01
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/BS01lef.png 
+	map_Kd textures/sanmiguel/BS01lef.png 
+
+newmtl Dracaena_2_Top
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP07stm2.png 
+	map_Kd textures/sanmiguel/HP07stm2.png 
+
+newmtl Chusan_Palm_1_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP19lef2.png 
+	map_Kd textures/sanmiguel/HP19lef2.png 
+
+newmtl Cinquefoil_2_Leafg1_
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL15pet2.png 
+	map_Kd textures/sanmiguel/FL15pet2.png 
+
+newmtl Pansy_1_blblu_c
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL19pe15.png 
+	map_Kd textures/sanmiguel/FL19pe15.png 
+
+newmtl Dutch_Iris_Leaf1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL11lef2.png 
+	map_Kd textures/sanmiguel/FL11lef2.png 
+
+newmtl Fern_3_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP17lef2.png 
+	map_Kd textures/sanmiguel/HP17lef2.png 
+
+newmtl hybrids_blossom
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/impatiens_newguinea_hybrids_petal.png 
+	map_Kd textures/sanmiguel/impatiens_newguinea_hybrids_petal.png 
+
+newmtl Cinquefoil_2_Blatt1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL15lef1.png 
+	map_Kd textures/sanmiguel/FL15lef1.png 
+
+newmtl Geranium_1_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL13lef1.png 
+	map_Kd textures/sanmiguel/FL13lef1.png 
+
+newmtl pendula_stem
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/zebrina_pendula_bark.png 
+	map_Kd textures/sanmiguel/zebrina_pendula_bark.png 
+
+newmtl aglaonema_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/aglaonema_leaf.png 
+	map_Kd textures/sanmiguel/aglaonema_leaf.png 
+
+newmtl Oxeye_Daisy_blattg1
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL04lef1.png 
+	map_Kd textures/sanmiguel/FL04lef1.png 
+
+newmtl zebrina_stem
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL24stm.png 
+	map_Kd textures/sanmiguel/FL24stm.png 
+
+newmtl Cinquefoil_2_Leafg1c
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL15lef2.png 
+	map_Kd textures/sanmiguel/FL15lef2.png 
+
+newmtl Geranium_1_blbl3
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL13pet3.png 
+	map_Kd textures/sanmiguel/FL13pet3.png 
+
+newmtl paniceum_stem
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/quercus_rubra_bark.png 
+	map_Kd textures/sanmiguel/quercus_rubra_bark.png 
+
+newmtl Mona_Lisa_1_Flowers
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP01stm1.png 
+	map_Kd textures/sanmiguel/HP01stm1.png 
+
+newmtl Pansy_1_Stengel
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL19stm.png 
+	map_Kd textures/sanmiguel/FL19stm.png 
+
+newmtl Dutch_Iris_Leaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL11lef1.png 
+	map_Kd textures/sanmiguel/FL11lef1.png 
+
+newmtl Mona_Lisa_2_Leaf1
+	Ks 0.117647 0.117647 0.117647 
+	Clamp on 
+	map_Ka textures/sanmiguel/citrus_limon_leaf.png 
+	map_Kd textures/sanmiguel/citrus_limon_leaf.png 
+	map_bump -bm 0.01 textures/sanmiguel/citrus_limon_leaf_Bump.png 
+
+newmtl Rose_3_Blutenb
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17pet2.png 
+	map_Kd textures/sanmiguel/FL17pet2.png 
+
+newmtl Poinsettia_1_redleaf
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL29pet1.png 
+	map_Kd textures/sanmiguel/FL29pet1.png 
+
+newmtl Mona_Lisa_1_Leaf2
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP01lef1.png 
+	map_Kd textures/sanmiguel/HP01lef1.png 
+
+newmtl Pansy_1_blblr
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL19pe14.png 
+	map_Kd textures/sanmiguel/FL19pe14.png 
+
+newmtl Rose_2__Kelchbl
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL17lef5.png 
+	map_Kd textures/sanmiguel/FL17lef5.png 
+
+newmtl Dutch_Iris_Stem
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL11stm.png 
+	map_Kd textures/sanmiguel/FL11stm.png 
+
+newmtl Lilium_head_Kopf_HP_co
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL12sta1.png 
+	map_Kd textures/sanmiguel/FL12sta1.png 
+
+newmtl Chusan_Palm_1_Speer
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/HP19stm1.png 
+	map_Kd textures/sanmiguel/HP19stm1.png 
+
+newmtl Poinsettia_1_blossom
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL29cnt1.png 
+	map_Kd textures/sanmiguel/FL29cnt1.png 
+
+newmtl aglaonema_Tree
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/aglaonema_bark.png 
+	map_Kd textures/sanmiguel/aglaonema_bark.png 
+
+newmtl Dutch_Iris_fl2stem
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/FL11sta.png 
+	map_Kd textures/sanmiguel/FL11sta.png 
+
+newmtl verschaffeltii_stem
+	Kd 0.5 0.5 0.5 
+	Clamp on 
+	map_Ka textures/sanmiguel/fittonia_verschaffeltii_bark.png 
+	map_Kd textures/sanmiguel/fittonia_verschaffeltii_bark.png 

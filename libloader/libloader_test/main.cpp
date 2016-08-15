@@ -153,6 +153,29 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
   return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
+HRESULT LoadTexture(const wchar_t* fullpath, DirectX::TexMetadata* metadata, DirectX::ScratchImage& image)
+{
+  if (!PathIsFileSpec(fullpath))
+    return E_FAIL;
+
+  LPWSTR extension = PathFindExtension(fullpath);
+  if (!extension)
+    return E_FAIL;
+
+  if (StrCmpI(extension, L".tga") == 0)
+  {
+    return DirectX::LoadFromTGAFile(fullpath, metadata, image);
+  }
+  else if (StrCmpI(extension, L".dds") == 0)
+  {
+    return DirectX::LoadFromDDSFile(fullpath, 0, metadata, image);
+  }
+  else
+  {
+    return DirectX::LoadFromWICFile(fullpath, 0, metadata, image);
+  }
+}
+
 HRESULT LoadAsset(const char* filename, HWND hwnd, std::unique_ptr<BaseRenderer>* out_renderer, std::wstring* out_error_message)
 {
   HRESULT hr = S_OK;
@@ -225,6 +248,7 @@ HRESULT LoadAsset(const char* filename, HWND hwnd, std::unique_ptr<BaseRenderer>
     bool result = libload_obj_load(filename, &model);
     if (result)
     {
+      libload_obj_compute_normals(model);
       libload_obj_compute_tangent_space(model);
 
       num_verts = model->num_vertices;
@@ -260,13 +284,12 @@ HRESULT LoadAsset(const char* filename, HWND hwnd, std::unique_ptr<BaseRenderer>
               {
                 wchar_t full_path[1024]{};
                 swprintf_s(full_path, L"%S\\%S", path, material.map_Kd);
-                hr = DirectX::LoadFromTGAFile(full_path, &metadata, scratch);
+                hr = LoadTexture(full_path, &metadata, scratch);
                 if (SUCCEEDED(hr))
                 {
                   uint32_t material_handle = 0;
-
-                  swprintf_s(full_path, L"%S\\%S", path, material.bump);
-                  hr = DirectX::LoadFromTGAFile(full_path, &metadata2, scratch2);
+                  swprintf_s(full_path, L"%S\\%S", path, material.map_bump);
+                  hr = LoadTexture(full_path, &metadata2, scratch2);
                   if (SUCCEEDED(hr))
                   {
                     hr = model_renderer->CreateMaterial(
@@ -291,6 +314,19 @@ HRESULT LoadAsset(const char* filename, HWND hwnd, std::unique_ptr<BaseRenderer>
                     break;
                   }
                 }
+                else
+                {
+                  uint32_t material_handle;
+                  uint32_t color = 0xFFFFFFFF;
+                  hr = model_renderer->CreateMaterial(
+                    1, 1, DXGI_FORMAT_R8G8B8A8_UNORM, &color,
+                    0, 0, DXGI_FORMAT_UNKNOWN, nullptr,
+                    &material_handle);
+                  if (SUCCEEDED(hr))
+                  {
+                    images[material.name] = material_handle;
+                  }
+                }
               }
             }
 
@@ -312,8 +348,16 @@ HRESULT LoadAsset(const char* filename, HWND hwnd, std::unique_ptr<BaseRenderer>
         }
         else
         {
-          hr = E_FAIL;
-          *out_error_message = L"Failed to load material count.";
+          uint32_t material_handle;
+          uint32_t color = 0xFFFFFFFF;
+          hr = model_renderer->CreateMaterial(
+            1, 1, DXGI_FORMAT_R8G8B8A8_UNORM, &color,
+            0, 0, DXGI_FORMAT_UNKNOWN, nullptr,
+            &material_handle);
+          if (SUCCEEDED(hr))
+          {
+            model_renderer->AddModel(0, model->num_indices, material_handle);
+          }
         }
       }
       else
