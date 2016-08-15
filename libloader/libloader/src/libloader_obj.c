@@ -30,6 +30,7 @@ bool libload_obj_load(const char* filename, libload_obj_model_t** out_model)
   keyvalue_pair_t* vertex_map = 0;
   uint32_t map_size = 0;
   uint32_t map_max = 0;
+  char groupname[64] = {0};
 
   // read the entire file into memory
   buffer = read_text_file(filename, &buffer_size);
@@ -96,6 +97,8 @@ bool libload_obj_load(const char* filename, libload_obj_model_t** out_model)
     }
     else if (_strnicmp(line, "mtllib ", 7) == 0) // material library
     {
+      sscanf_s(line + 7, "%s", model->material_file,
+        (uint32_t)LIBLOAD_ARRAYSIZE(model->material_file));
     }
     else if (_strnicmp(line, "v ", 2) == 0) // vertex
     {
@@ -124,19 +127,26 @@ bool libload_obj_load(const char* filename, libload_obj_model_t** out_model)
         &vert_texcoords[num_vert_texcoords].y) != 2)
         goto cleanup;
 
+      vert_texcoords[num_vert_texcoords].y = 1.f - vert_texcoords[num_vert_texcoords].y;
+
       ++num_vert_texcoords;
     }
     else if (_strnicmp(line, "g ", 2) == 0) // new group
+    {
+      sscanf_s(line + 2, "%s", groupname,
+        (uint32_t)LIBLOAD_ARRAYSIZE(groupname));
+    }
+    else if (_strnicmp(line, "usemtl ", 7) == 0) // use material
     {
       if (current_part)
         current_part->num_indices = model->num_indices - current_part->base_index;
 
       current_part = &model->parts[model->num_parts++];
       current_part->base_index = model->num_indices;
-      sscanf_s(line + 2, "%s", current_part->name, (uint32_t)(sizeof(current_part->name) / sizeof(current_part->name[0])));
-    }
-    else if (_strnicmp(line, "usemtl ", 7) == 0) // use material
-    {
+      strcpy_s(current_part->name, LIBLOAD_ARRAYSIZE(current_part->name), groupname);
+
+      sscanf_s(line + 7, "%s", current_part->material_name,
+        (uint32_t)LIBLOAD_ARRAYSIZE(current_part->material_name));
     }
     else if (_strnicmp(line, "s ", 2) == 0) // smooth shading group
     {
@@ -227,6 +237,9 @@ bool libload_obj_load(const char* filename, libload_obj_model_t** out_model)
     line = line_end + 1;
   }
 
+  if (current_part)
+    current_part->num_indices = model->num_indices - current_part->base_index;
+
   *out_model = model;
   model = 0;
   result = true;
@@ -260,4 +273,205 @@ void libload_obj_free(libload_obj_model_t* model)
       free(model->parts);
     free(model);
   }
+}
+
+bool libload_mtl_load(const char* filename, uint32_t* inout_num_materials, libload_mtl_t* out_materials)
+{
+  bool result = false;
+  uint32_t buffer_size = 0;
+  char* buffer = 0;
+  char* buffer_end = 0;
+  char* line = 0;
+  char* line_end = 0;
+  uint32_t max_materials = 0;
+  libload_mtl_t* current_material = 0;
+
+  // validate input
+  if (!inout_num_materials)
+    goto cleanup;
+
+  if (*inout_num_materials > 0 && !out_materials)
+    goto cleanup;
+
+  max_materials = *inout_num_materials;
+  *inout_num_materials = 0;
+
+  // read the entire file into memory
+  buffer = read_text_file(filename, &buffer_size);
+  if (!buffer)
+    goto cleanup;
+
+  buffer_end = buffer + buffer_size;
+
+  // start at top of buffer, and start parsing one line at a time
+  line = buffer;
+  while (line < buffer_end)
+  {
+    // trim off any leading whitespace
+    while ((*line == ' ' || *line == '\t') && line < buffer_end)
+      ++line;
+
+    // read one line in by finding the newline & turning into \0
+    line_end = line;
+    while (line_end < buffer_end && *line_end != '\n')
+      ++line_end;
+
+    if (line_end < buffer_end)
+      *line_end = '\0';
+
+    // handle line
+    if (*line == '#') // comment
+    {
+    }
+    else if (_strnicmp(line, "newmtl ", 7) == 0) // material library
+    {
+      if (out_materials)
+      {
+        current_material = &out_materials[*inout_num_materials];
+        sscanf_s(line + 7, "%s", current_material->name,
+          (uint32_t)LIBLOAD_ARRAYSIZE(current_material->name));
+      }
+      ++(*inout_num_materials);
+    }
+    else if (_strnicmp(line, "Ns ", 3) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 3, "%f", &current_material->Ns);
+      }
+    }
+    else if (_strnicmp(line, "Ni ", 3) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 3, "%f", &current_material->Ni);
+      }
+    }
+    else if (_strnicmp(line, "d ", 2) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 2, "%f", &current_material->d);
+      }
+    }
+    else if (_strnicmp(line, "Tr ", 3) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 3, "%f", &current_material->Tr);
+      }
+    }
+    else if (_strnicmp(line, "Tf ", 3) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 3, "%f %f %f",
+          &current_material->Tf.x,
+          &current_material->Tf.y,
+          &current_material->Tf.z);
+      }
+    }
+    else if (_strnicmp(line, "illum ", 6) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 6, "%d", &current_material->illum_model);
+      }
+    }
+    else if (_strnicmp(line, "Ka ", 3) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 3, "%f %f %f",
+          &current_material->Ka.x,
+          &current_material->Ka.y,
+          &current_material->Ka.z);
+      }
+    }
+    else if (_strnicmp(line, "Kd ", 3) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 3, "%f %f %f",
+          &current_material->Kd.x,
+          &current_material->Kd.y,
+          &current_material->Kd.z);
+      }
+    }
+    else if (_strnicmp(line, "Ks ", 3) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 3, "%f %f %f",
+          &current_material->Ks.x,
+          &current_material->Ks.y,
+          &current_material->Ks.z);
+      }
+    }
+    else if (_strnicmp(line, "Ke ", 3) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 3, "%f %f %f",
+          &current_material->Ke.x,
+          &current_material->Ke.y,
+          &current_material->Ke.z);
+      }
+    }
+    else if (_strnicmp(line, "map_Ka ", 7) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 7, "%s",
+          current_material->map_Ka,
+          (uint32_t)LIBLOAD_ARRAYSIZE(current_material->map_Ka));
+      }
+    }
+    else if (_strnicmp(line, "map_Kd ", 7) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 7, "%s",
+          current_material->map_Kd,
+          (uint32_t)LIBLOAD_ARRAYSIZE(current_material->map_Kd));
+      }
+    }
+    else if (_strnicmp(line, "map_d ", 6) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 6, "%s",
+          current_material->map_d,
+          (uint32_t)LIBLOAD_ARRAYSIZE(current_material->map_d));
+      }
+    }
+    else if (_strnicmp(line, "map_bump ", 9) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 9, "%s",
+          current_material->map_bump,
+          (uint32_t)LIBLOAD_ARRAYSIZE(current_material->map_bump));
+      }
+    }
+    else if (_strnicmp(line, "bump ", 5) == 0) // 
+    {
+      if (current_material)
+      {
+        sscanf_s(line + 5, "%s",
+          current_material->bump,
+          (uint32_t)LIBLOAD_ARRAYSIZE(current_material->bump));
+      }
+    }
+
+    line = line_end + 1;
+  }
+
+  result = true;
+
+cleanup:
+  if (buffer)
+    free(buffer);
+
+  return result;
 }

@@ -5,6 +5,7 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <map>
 
 #include <DirectXTex.h>
 
@@ -226,11 +227,79 @@ HRESULT LoadAsset(const char* filename, HWND hwnd, std::unique_ptr<BaseRenderer>
     {
       num_verts = model->num_vertices;
       num_indices = model->num_indices;
+
       hr = model_renderer->Initialize(hwnd, model->num_vertices, (const SimpleVertex3D*)model->vertices,
         model->num_indices, model->indices);
-      if (FAILED(hr))
+      if (SUCCEEDED(hr))
       {
-        *out_error_message = L"Failed to initialize model renderer.";
+        // load materials
+        uint32_t num_materials = 0;
+        std::vector<libload_mtl_t> materials;
+        result = libload_mtl_load(model->material_file, &num_materials, nullptr);
+        if (result)
+        {
+          materials.resize(num_materials);
+          result = libload_mtl_load(model->material_file, &num_materials, materials.data());
+          if (result)
+          {
+            char path[1024]{};
+            strcpy_s(path, filename);
+            PathRemoveFileSpecA(path);
+
+            std::map<std::string, uint32_t> images;
+            DirectX::TexMetadata metadata;
+            DirectX::ScratchImage scratch;
+            for (auto& material : materials)
+            {
+              auto it = images.find(material.name);
+              if (it == images.end())
+              {
+                wchar_t full_path[1024]{};
+                swprintf_s(full_path, L"%S\\%S", path, material.map_Kd);
+                hr = DirectX::LoadFromTGAFile(full_path, &metadata, scratch);
+                if (SUCCEEDED(hr))
+                {
+                  uint32_t image_handle = 0;
+                  hr = model_renderer->CreateImage((uint32_t)metadata.width, (uint32_t)metadata.height,
+                    metadata.format, (const uint32_t*)scratch.GetPixels(), &image_handle);
+                  if (SUCCEEDED(hr))
+                  {
+                    images[material.name] = image_handle;
+                  }
+                  else
+                  {
+                    *out_error_message = L"Failed to create material resources.";
+                    break;
+                  }
+                }
+              }
+            }
+
+            if (SUCCEEDED(hr))
+            {
+              for (uint32_t i = 0; i < model->num_parts; ++i)
+              {
+                auto it = images.find(model->parts[i].material_name);
+                if (it != images.end())
+                  model_renderer->AddModel(model->parts[i].base_index, model->parts[i].num_indices, it->second);
+              }
+            }
+          }
+          else
+          {
+            hr = E_FAIL;
+            *out_error_message = L"Failed to load materials.";
+          }
+        }
+        else
+        {
+          hr = E_FAIL;
+          *out_error_message = L"Failed to load material count.";
+        }
+      }
+      else
+      {
+        *out_error_message = L"Failed to create model renderer.";
       }
       libload_obj_free(model);
     }

@@ -317,6 +317,32 @@ HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const Simple
     return hr;
   }
 
+  D3D11_SAMPLER_DESC sd{};
+  sd.AddressU = sd.AddressV = sd.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+  sd.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+  hr = device_->CreateSamplerState(&sd, &sampler_);
+  if (FAILED(hr))
+  {
+    assert(false);
+    return hr;
+  }
+
+  D3D11_BLEND_DESC blend{};
+  blend.RenderTarget[0].BlendEnable = TRUE;
+  blend.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+  blend.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+  blend.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+  blend.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+  blend.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+  blend.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+  blend.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+  hr = device_->CreateBlendState(&blend, &blendstate_);
+  if (FAILED(hr))
+  {
+    assert(false);
+    return hr;
+  }
+
   uint32_t strides[] = { sizeof(SimpleVertex3D) };
   uint32_t offsets[] = { 0 };
 
@@ -326,6 +352,8 @@ HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const Simple
   context_->VSSetShader(vertexshader_.Get(), nullptr, 0);
   context_->VSSetConstantBuffers(0, 1, constantbuffer_.GetAddressOf());
   context_->PSSetShader(pixelshader_.Get(), nullptr, 0);
+  context_->PSSetSamplers(0, 1, sampler_.GetAddressOf());
+  //context_->OMSetBlendState(blendstate_.Get(), nullptr, D3D11_DEFAULT_SAMPLE_MASK);
 
   return S_OK;
 }
@@ -360,6 +388,55 @@ HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const Simple
   context_->IASetIndexBuffer(indexbuffer_.Get(), DXGI_FORMAT_R32_UINT, 0);
 
   return S_OK;
+}
+
+HRESULT ModelRenderer::CreateImage(uint32_t width, uint32_t height, DXGI_FORMAT format, const uint32_t* pixels, uint32_t* out_image_handle)
+{
+  HRESULT hr = S_OK;
+
+  image_data image{};
+
+  D3D11_TEXTURE2D_DESC td{};
+  td.ArraySize = 1;
+  td.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+  td.Format = format;
+  td.Width = width;
+  td.Height = height;
+  td.SampleDesc.Count = 1;
+  td.MipLevels = 1;
+
+  D3D11_SUBRESOURCE_DATA init{};
+  init.pSysMem = pixels;
+  init.SysMemPitch = sizeof(uint32_t) * width;
+  init.SysMemSlicePitch = init.SysMemPitch * height;
+
+  hr = device_->CreateTexture2D(&td, &init, &image.texture);
+  if (FAILED(hr))
+  {
+    assert(false);
+    return hr;
+  }
+
+  hr = device_->CreateShaderResourceView(image.texture.Get(), nullptr, &image.srv);
+  if (FAILED(hr))
+  {
+    assert(false);
+    return hr;
+  }
+
+  images_.push_back(image);
+  *out_image_handle = (uint32_t)(images_.size() - 1);
+
+  return S_OK;
+}
+
+void ModelRenderer::AddModel(uint32_t base_index, uint32_t num_indices, uint32_t image_handle)
+{
+  model_data model{};
+  model.base_index = base_index;
+  model.num_indices = num_indices;
+  model.image_handle = image_handle;
+  models_.push_back(model);
 }
 
 void ModelRenderer::HandleInput()
@@ -440,10 +517,23 @@ void ModelRenderer::OnRender()
 
   if (indexbuffer_)
   {
-    context_->DrawIndexed(num_indices_, 0, 0);
+    for (auto& model : models_)
+    {
+      context_->PSSetShaderResources(0, 1, images_[model.image_handle].srv.GetAddressOf());
+      if (model.base_index + model.num_indices > num_indices_)
+      {
+        int x = 3;
+        UNREFERENCED_PARAMETER(x);
+      }
+      context_->DrawIndexed(model.num_indices, model.base_index, 0);
+    }
   }
   else
   {
-    context_->Draw(num_vertices_, 0);
+    for (auto& model : models_)
+    {
+      context_->PSSetShaderResources(0, 1, images_[model.image_handle].srv.GetAddressOf());
+      context_->Draw(model.num_indices, model.base_index);
+    }
   }
 }
