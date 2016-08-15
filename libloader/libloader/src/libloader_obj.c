@@ -61,7 +61,7 @@ bool libload_obj_load(const char* filename, libload_obj_model_t** out_model)
 
   memset(model, 0, sizeof(libload_obj_model_t));
 
-  model->vertices = (libload_obj_vertex_t*)malloc(buffer_size);
+  model->vertices = (libload_obj_vertex_t*)malloc(buffer_size * 10);
   if (!model->vertices)
     goto cleanup;
 

@@ -155,7 +155,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 HRESULT LoadTexture(const wchar_t* fullpath, DirectX::TexMetadata* metadata, DirectX::ScratchImage& image)
 {
-  if (!PathIsFileSpec(fullpath))
+  if (!PathFileExists(fullpath))
     return E_FAIL;
 
   LPWSTR extension = PathFindExtension(fullpath);
@@ -317,7 +317,11 @@ HRESULT LoadAsset(const char* filename, HWND hwnd, std::unique_ptr<BaseRenderer>
                 else
                 {
                   uint32_t material_handle;
-                  uint32_t color = 0xFFFFFFFF;
+                  uint32_t color =
+                    0xFF000000 |
+                    ((uint32_t)((uint8_t)(material.Kd.z * 255)) << 16) |
+                    ((uint32_t)((uint8_t)(material.Kd.y * 255)) << 8) |
+                    ((uint32_t)((uint8_t)(material.Kd.x * 255)));
                   hr = model_renderer->CreateMaterial(
                     1, 1, DXGI_FORMAT_R8G8B8A8_UNORM, &color,
                     0, 0, DXGI_FORMAT_UNKNOWN, nullptr,

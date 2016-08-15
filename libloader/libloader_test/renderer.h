@@ -128,6 +128,7 @@ private:
   std::vector<model_data> models_;
 
   constant_data constants_ = {};
-  DirectX::XMFLOAT3 camera_position_ = DirectX::XMFLOAT3(0, 0, -500);
+  float scale_ = 1.f;
+  DirectX::XMFLOAT3 camera_position_ = DirectX::XMFLOAT3(0, 0, -5);
   DirectX::XMFLOAT4 camera_orientation_ = DirectX::XMFLOAT4(0, 0, 0, 1);
 };

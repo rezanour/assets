@@ -302,11 +302,11 @@ HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const Vertex
   RECT rc{};
   GetClientRect(hwnd, &rc);
 
-  XMStoreFloat4x4(&constants_.LocalToWorld, XMMatrixIdentity());
+  XMStoreFloat4x4(&constants_.LocalToWorld, XMMatrixScaling(scale_, scale_, scale_));
   XMStoreFloat4x4(&constants_.WorldToView, XMMatrixLookAtLH(
     XMLoadFloat3(&camera_position_), XMVectorZero(), XMVectorSet(0, 1, 0, 0)));
   XMStoreFloat4x4(&constants_.ViewToProjection, XMMatrixPerspectiveFovLH(
-    XMConvertToRadians(60.f), (rc.right - rc.left) / (float)(rc.bottom - rc.top), 1.f, 1000.f));
+    XMConvertToRadians(60.f), (rc.right - rc.left) / (float)(rc.bottom - rc.top), 0.1f, 100.f));
 
   bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
   bd.StructureByteStride = sizeof(constant_data);
@@ -434,7 +434,8 @@ HRESULT ModelRenderer::CreateMaterial(
     return hr;
   }
 
-  if (normals)
+  // HACK: need to handle other formats
+  if (normals && norm_format == DXGI_FORMAT_R8G8B8A8_UNORM)
   {
     td.Format = norm_format;
     td.Width = norm_width;
@@ -487,22 +488,26 @@ void ModelRenderer::HandleInput()
   XMVECTOR movement = XMVectorZero();
   XMVECTOR rotation = XMQuaternionIdentity();
 
+  float speed = 0.125f;
+  if (GetAsyncKeyState(VK_LSHIFT) & 0x8000)
+    speed = 5.f;
+
   // translation
   if (GetAsyncKeyState('W') & 0x8000)
   {
-    movement += forward * 5;
+    movement += forward * speed;
   }
   if (GetAsyncKeyState('A') & 0x8000)
   {
-    movement -= right * 5;
+    movement -= right * speed;
   }
   if (GetAsyncKeyState('S') & 0x8000)
   {
-    movement -= forward * 5;
+    movement -= forward * speed;
   }
   if (GetAsyncKeyState('D') & 0x8000)
   {
-    movement += right * 5;
+    movement += right * speed;
   }
 
   // rotation
@@ -539,6 +544,14 @@ void ModelRenderer::HandleInput()
   rot.r[2] = forward;
   rot.r[3] = XMVectorSet(0, 0, 0, 1);
   XMStoreFloat4(&camera_orientation_, XMQuaternionRotationMatrix(rot));
+
+  // scale
+  if (GetAsyncKeyState('Z') & 0x8000)
+    scale_ -= 0.01f;
+  if (GetAsyncKeyState('X') & 0x8000)
+    scale_ += 0.01f;
+
+  XMStoreFloat4x4(&constants_.LocalToWorld, XMMatrixScaling(scale_, scale_, scale_));
 }
 
 void ModelRenderer::OnRender()

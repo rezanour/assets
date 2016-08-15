@@ -22,9 +22,9 @@ void main(
                      mul(LocalToWorld, float4(position, 1))));
 
   // only works if local to world is orthonormal
-  out_normal = mul((float3x3)LocalToWorld, normal);
-  out_tangent = mul((float3x3)LocalToWorld, tangent);
-  out_bitangent = mul((float3x3)LocalToWorld, bitangent);
+  out_normal = normalize(mul((float3x3)LocalToWorld, normal));
+  out_tangent = normalize(mul((float3x3)LocalToWorld, tangent));
+  out_bitangent = normalize(mul((float3x3)LocalToWorld, bitangent));
 
   out_texcoord = texcoord;
 }
