@@ -36,6 +36,8 @@ typedef struct
 {
   libload_float3_t position;
   libload_float3_t normal;
+  libload_float3_t tangent;
+  libload_float3_t bitangent;
   libload_float2_t texcoord;
 } libload_obj_vertex_t;
 
@@ -61,6 +63,7 @@ typedef struct
 } libload_obj_model_t;
 
 bool libload_obj_load(const char* filename, libload_obj_model_t** out_model);
+bool libload_obj_compute_tangent_space(libload_obj_model_t* model);
 void libload_obj_free(libload_obj_model_t* model);
 
 typedef struct

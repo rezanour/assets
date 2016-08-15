@@ -225,10 +225,12 @@ HRESULT LoadAsset(const char* filename, HWND hwnd, std::unique_ptr<BaseRenderer>
     bool result = libload_obj_load(filename, &model);
     if (result)
     {
+      libload_obj_compute_tangent_space(model);
+
       num_verts = model->num_vertices;
       num_indices = model->num_indices;
 
-      hr = model_renderer->Initialize(hwnd, model->num_vertices, (const SimpleVertex3D*)model->vertices,
+      hr = model_renderer->Initialize(hwnd, model->num_vertices, (const Vertex3D*)model->vertices,
         model->num_indices, model->indices);
       if (SUCCEEDED(hr))
       {
@@ -249,6 +251,8 @@ HRESULT LoadAsset(const char* filename, HWND hwnd, std::unique_ptr<BaseRenderer>
             std::map<std::string, uint32_t> images;
             DirectX::TexMetadata metadata;
             DirectX::ScratchImage scratch;
+            DirectX::TexMetadata metadata2;
+            DirectX::ScratchImage scratch2;
             for (auto& material : materials)
             {
               auto it = images.find(material.name);
@@ -259,12 +263,27 @@ HRESULT LoadAsset(const char* filename, HWND hwnd, std::unique_ptr<BaseRenderer>
                 hr = DirectX::LoadFromTGAFile(full_path, &metadata, scratch);
                 if (SUCCEEDED(hr))
                 {
-                  uint32_t image_handle = 0;
-                  hr = model_renderer->CreateImage((uint32_t)metadata.width, (uint32_t)metadata.height,
-                    metadata.format, (const uint32_t*)scratch.GetPixels(), &image_handle);
+                  uint32_t material_handle = 0;
+
+                  swprintf_s(full_path, L"%S\\%S", path, material.bump);
+                  hr = DirectX::LoadFromTGAFile(full_path, &metadata2, scratch2);
                   if (SUCCEEDED(hr))
                   {
-                    images[material.name] = image_handle;
+                    hr = model_renderer->CreateMaterial(
+                      (uint32_t)metadata.width, (uint32_t)metadata.height, metadata.format, (const uint32_t*)scratch.GetPixels(),
+                      (uint32_t)metadata2.width, (uint32_t)metadata2.height, metadata2.format, (const uint32_t*)scratch2.GetPixels(),
+                      &material_handle);
+                  }
+                  else
+                  {
+                    hr = model_renderer->CreateMaterial(
+                      (uint32_t)metadata.width, (uint32_t)metadata.height, metadata.format, (const uint32_t*)scratch.GetPixels(),
+                      0, 0, DXGI_FORMAT_UNKNOWN, nullptr,
+                      &material_handle);
+                  }
+                  if (SUCCEEDED(hr))
+                  {
+                    images[material.name] = material_handle;
                   }
                   else
                   {

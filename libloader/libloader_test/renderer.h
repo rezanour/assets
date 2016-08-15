@@ -9,10 +9,12 @@
 class QuadRenderer;
 class ModelRenderer;
 
-struct SimpleVertex3D
+struct Vertex3D
 {
   float x, y, z;    // position
   float nx, ny, nz; // normal
+  float tx, ty, tz; // tangent
+  float bx, by, bz; // bitangent
   float u, v;       // texcoord
 };
 
@@ -74,11 +76,14 @@ public:
   ModelRenderer() {}
   virtual ~ModelRenderer() {}
 
-  HRESULT Initialize(HWND hwnd, uint32_t num_vertices, const SimpleVertex3D* vertices);
-  HRESULT Initialize(HWND hwnd, uint32_t num_vertices, const SimpleVertex3D* vertices, uint32_t num_indices, const uint32_t* indices);
+  HRESULT Initialize(HWND hwnd, uint32_t num_vertices, const Vertex3D* vertices);
+  HRESULT Initialize(HWND hwnd, uint32_t num_vertices, const Vertex3D* vertices, uint32_t num_indices, const uint32_t* indices);
 
-  HRESULT CreateImage(uint32_t width, uint32_t height, DXGI_FORMAT format, const uint32_t* pixels, uint32_t* out_image_handle);
-  void AddModel(uint32_t base_index, uint32_t num_indices, uint32_t image_handle);
+  HRESULT CreateMaterial(
+    uint32_t diff_width, uint32_t diff_height, DXGI_FORMAT diff_format, const uint32_t* diffuse,
+    uint32_t norm_width, uint32_t norm_height, DXGI_FORMAT norm_format, const uint32_t* normals,
+    uint32_t* out_material_handle);
+  void AddModel(uint32_t base_index, uint32_t num_indices, uint32_t material_handle);
 
   virtual void HandleInput() override;
 
@@ -96,17 +101,17 @@ private:
     DirectX::XMFLOAT4X4 ViewToProjection;
   };
 
-  struct image_data
+  struct material_data
   {
-    Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
-    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> srv;
+    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> diffuse_srv;
+    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> normals_srv;
   };
 
   struct model_data
   {
     uint32_t base_index;  // base_vertex if not using indexbuffer
     uint32_t num_indices; // num_vertices if not using indexbuffer
-    uint32_t image_handle;
+    uint32_t material_index;
   };
 
   Microsoft::WRL::ComPtr<ID3D11Buffer> vertexbuffer_;
@@ -119,7 +124,7 @@ private:
   Microsoft::WRL::ComPtr<ID3D11BlendState> blendstate_;
   uint32_t num_vertices_ = 0;
   uint32_t num_indices_ = 0;
-  std::vector<image_data> images_;
+  std::vector<material_data> materials_;
   std::vector<model_data> models_;
 
   constant_data constants_ = {};

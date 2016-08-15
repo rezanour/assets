@@ -10,6 +10,7 @@
 #include <malloc.h>
 #include <string.h>
 #include <assert.h>
+#include <math.h>
 
 bool libload_obj_load(const char* filename, libload_obj_model_t** out_model)
 {
@@ -72,6 +73,8 @@ bool libload_obj_load(const char* filename, libload_obj_model_t** out_model)
   if (!model->parts)
     goto cleanup;
 
+  memset(model->vertices, 0, buffer_size);
+
   // allocate the vertex map for binning (to build minimal verts & good index list)
   vertex_map = (keyvalue_pair_t*)malloc(buffer_size);
   if (!vertex_map)
@@ -127,7 +130,7 @@ bool libload_obj_load(const char* filename, libload_obj_model_t** out_model)
         &vert_texcoords[num_vert_texcoords].y) != 2)
         goto cleanup;
 
-      vert_texcoords[num_vert_texcoords].y = 1.f - vert_texcoords[num_vert_texcoords].y;
+      //vert_texcoords[num_vert_texcoords].y = 1.f - vert_texcoords[num_vert_texcoords].y;
 
       ++num_vert_texcoords;
     }
@@ -257,6 +260,108 @@ cleanup:
     free(verts);
   if (buffer)
     free(buffer);
+
+  return result;
+}
+
+bool libload_obj_compute_tangent_space(libload_obj_model_t* model)
+{
+  bool result = false;
+  uint32_t i = 0;
+  uint32_t* num_accum = 0;
+
+  if (!model)
+    goto cleanup;
+
+  num_accum = (uint32_t*)malloc(sizeof(uint32_t) * model->num_vertices);
+  if (!num_accum)
+    goto cleanup;
+
+  memset(num_accum, 0, sizeof(uint32_t) * model->num_vertices);
+
+  for (i = 0; i < model->num_indices; i += 3)
+  {
+    libload_obj_vertex_t* v0 = &model->vertices[model->indices[i]];
+    libload_obj_vertex_t* v1 = &model->vertices[model->indices[i + 1]];
+    libload_obj_vertex_t* v2 = &model->vertices[model->indices[i + 2]];
+
+    libload_float3_t e0, e1;
+    libload_float2_t uv0, uv1;
+    float Q;
+    libload_float3_t T, B;
+
+    e0.x = v1->position.x - v0->position.x;
+    e0.y = v1->position.y - v0->position.y;
+    e0.z = v1->position.z - v0->position.z;
+
+    e1.x = v2->position.x - v0->position.x;
+    e1.y = v2->position.y - v0->position.y;
+    e1.z = v2->position.z - v0->position.z;
+
+    uv0.x = v1->texcoord.x - v0->texcoord.x;
+    uv0.y = v1->texcoord.y - v0->texcoord.y;
+    uv1.x = v2->texcoord.x - v0->texcoord.x;
+    uv1.y = v2->texcoord.y - v0->texcoord.y;
+
+    Q = 1.f / (uv0.x * uv1.y - uv0.y * uv1.x);
+
+    T.x = Q * (uv1.y * e0.x - uv0.y * e1.x);
+    T.y = Q * (uv1.y * e0.y - uv0.y * e1.y);
+    T.z = Q * (uv1.y * e0.z - uv0.y * e1.z);
+    B.x = Q * (uv0.x * e1.x - uv1.x * e0.x);
+    B.y = Q * (uv0.x * e1.y - uv1.x * e0.y);
+    B.z = Q * (uv0.x * e1.z - uv1.x * e0.z);
+
+    v0->tangent.x += T.x; v1->tangent.x += T.x; v2->tangent.x += T.x;
+    v0->tangent.y += T.y; v1->tangent.y += T.y; v2->tangent.y += T.y;
+    v0->tangent.z += T.z; v1->tangent.z += T.z; v2->tangent.z += T.z;
+    v0->bitangent.x += B.x; v1->bitangent.x += B.x; v2->bitangent.x += B.x;
+    v0->bitangent.y += B.y; v1->bitangent.y += B.y; v2->bitangent.y += B.y;
+    v0->bitangent.z += B.z; v1->bitangent.z += B.z; v2->bitangent.z += B.z;
+    ++num_accum[model->indices[i]];
+    ++num_accum[model->indices[i + 1]];
+    ++num_accum[model->indices[i + 2]];
+  }
+
+  // average them out
+  for (i = 0; i < model->num_vertices; ++i)
+  {
+    if (num_accum[i] > 0)
+    {
+      float inv_denom = 1.f / (float)num_accum[i];
+      float inv_tan_len, inv_bitan_len;
+
+      model->vertices[i].tangent.x *= inv_denom;
+      model->vertices[i].tangent.y *= inv_denom;
+      model->vertices[i].tangent.z *= inv_denom;
+      inv_tan_len = 1.f / sqrtf(
+        model->vertices[i].tangent.x * model->vertices[i].tangent.x +
+        model->vertices[i].tangent.y * model->vertices[i].tangent.y +
+        model->vertices[i].tangent.z * model->vertices[i].tangent.z);
+      model->vertices[i].tangent.x *= inv_tan_len;
+      model->vertices[i].tangent.y *= inv_tan_len;
+      model->vertices[i].tangent.z *= inv_tan_len;
+
+      model->vertices[i].bitangent.x *= inv_denom;
+      model->vertices[i].bitangent.y *= inv_denom;
+      model->vertices[i].bitangent.z *= inv_denom;
+      inv_bitan_len = 1.f / sqrtf(
+        model->vertices[i].bitangent.x * model->vertices[i].bitangent.x +
+        model->vertices[i].bitangent.y * model->vertices[i].bitangent.y +
+        model->vertices[i].bitangent.z * model->vertices[i].bitangent.z);
+      model->vertices[i].bitangent.x *= inv_bitan_len;
+      model->vertices[i].bitangent.y *= inv_bitan_len;
+      model->vertices[i].bitangent.z *= inv_bitan_len;
+    }
+
+    model->vertices[i].texcoord.y = 1.f - model->vertices[i].texcoord.y;
+  }
+
+  result = true;
+
+cleanup:
+  if (num_accum)
+    free(num_accum);
 
   return result;
 }

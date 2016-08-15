@@ -236,7 +236,7 @@ void QuadRenderer::OnRender()
 // ModelRenderer
 //=============================================================================
 
-HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const SimpleVertex3D* vertices)
+HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const Vertex3D* vertices)
 {
   HRESULT hr = BaseInitialize(hwnd);
   if (FAILED(hr))
@@ -258,15 +258,21 @@ HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const Simple
     return hr;
   }
 
-  D3D11_INPUT_ELEMENT_DESC elems[3]{};
+  D3D11_INPUT_ELEMENT_DESC elems[5]{};
   elems[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
   elems[0].SemanticName = "POSITION";
   elems[1].AlignedByteOffset = sizeof(float) * 3;
   elems[1].Format = DXGI_FORMAT_R32G32B32_FLOAT;
   elems[1].SemanticName = "NORMAL";
   elems[2].AlignedByteOffset = sizeof(float) * 6;
-  elems[2].Format = DXGI_FORMAT_R32G32_FLOAT;
-  elems[2].SemanticName = "TEXCOORD";
+  elems[2].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+  elems[2].SemanticName = "TANGENT";
+  elems[3].AlignedByteOffset = sizeof(float) * 9;
+  elems[3].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+  elems[3].SemanticName = "BITANGENT";
+  elems[4].AlignedByteOffset = sizeof(float) * 12;
+  elems[4].Format = DXGI_FORMAT_R32G32_FLOAT;
+  elems[4].SemanticName = "TEXCOORD";
   hr = device_->CreateInputLayout(elems, _countof(elems), Model_vs, sizeof(Model_vs), &inputlayout_);
   if (FAILED(hr))
   {
@@ -276,12 +282,12 @@ HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const Simple
 
   D3D11_BUFFER_DESC bd{};
   bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-  bd.StructureByteStride = sizeof(SimpleVertex3D);
+  bd.StructureByteStride = sizeof(Vertex3D);
   bd.ByteWidth = bd.StructureByteStride * num_vertices;
 
   D3D11_SUBRESOURCE_DATA init{};
   init.pSysMem = vertices;
-  init.SysMemPitch = sizeof(SimpleVertex3D) * num_vertices;
+  init.SysMemPitch = sizeof(Vertex3D) * num_vertices;
   init.SysMemSlicePitch = init.SysMemPitch;
 
   hr = device_->CreateBuffer(&bd, &init, &vertexbuffer_);
@@ -343,7 +349,7 @@ HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const Simple
     return hr;
   }
 
-  uint32_t strides[] = { sizeof(SimpleVertex3D) };
+  uint32_t strides[] = { sizeof(Vertex3D) };
   uint32_t offsets[] = { 0 };
 
   context_->IASetInputLayout(inputlayout_.Get());
@@ -358,7 +364,7 @@ HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const Simple
   return S_OK;
 }
 
-HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const SimpleVertex3D* vertices, uint32_t num_indices, const uint32_t* indices)
+HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const Vertex3D* vertices, uint32_t num_indices, const uint32_t* indices)
 {
   HRESULT hr = Initialize(hwnd, num_vertices, vertices);
   if (FAILED(hr))
@@ -390,52 +396,82 @@ HRESULT ModelRenderer::Initialize(HWND hwnd, uint32_t num_vertices, const Simple
   return S_OK;
 }
 
-HRESULT ModelRenderer::CreateImage(uint32_t width, uint32_t height, DXGI_FORMAT format, const uint32_t* pixels, uint32_t* out_image_handle)
+HRESULT ModelRenderer::CreateMaterial(
+  uint32_t diff_width, uint32_t diff_height, DXGI_FORMAT diff_format, const uint32_t* diffuse,
+  uint32_t norm_width, uint32_t norm_height, DXGI_FORMAT norm_format, const uint32_t* normals,
+  uint32_t* out_material_handle)
 {
   HRESULT hr = S_OK;
 
-  image_data image{};
+  material_data mat{};
 
   D3D11_TEXTURE2D_DESC td{};
   td.ArraySize = 1;
   td.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-  td.Format = format;
-  td.Width = width;
-  td.Height = height;
+  td.Format = diff_format;
+  td.Width = diff_width;
+  td.Height = diff_height;
   td.SampleDesc.Count = 1;
   td.MipLevels = 1;
 
   D3D11_SUBRESOURCE_DATA init{};
-  init.pSysMem = pixels;
-  init.SysMemPitch = sizeof(uint32_t) * width;
-  init.SysMemSlicePitch = init.SysMemPitch * height;
+  init.pSysMem = diffuse;
+  init.SysMemPitch = sizeof(uint32_t) * diff_width;
+  init.SysMemSlicePitch = init.SysMemPitch * diff_height;
 
-  hr = device_->CreateTexture2D(&td, &init, &image.texture);
+  Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
+  hr = device_->CreateTexture2D(&td, &init, texture.ReleaseAndGetAddressOf());
   if (FAILED(hr))
   {
     assert(false);
     return hr;
   }
 
-  hr = device_->CreateShaderResourceView(image.texture.Get(), nullptr, &image.srv);
+  hr = device_->CreateShaderResourceView(texture.Get(), nullptr, &mat.diffuse_srv);
   if (FAILED(hr))
   {
     assert(false);
     return hr;
   }
 
-  images_.push_back(image);
-  *out_image_handle = (uint32_t)(images_.size() - 1);
+  if (normals)
+  {
+    td.Format = norm_format;
+    td.Width = norm_width;
+    td.Height = norm_height;
+
+    init.pSysMem = normals;
+    init.SysMemPitch = sizeof(uint32_t) * norm_width;
+    init.SysMemSlicePitch = init.SysMemPitch * norm_height;
+
+    hr = device_->CreateTexture2D(&td, &init, texture.ReleaseAndGetAddressOf());
+    if (FAILED(hr))
+    {
+      assert(false);
+      return hr;
+    }
+
+    hr = device_->CreateShaderResourceView(texture.Get(), nullptr, &mat.normals_srv);
+    if (FAILED(hr))
+    {
+      assert(false);
+      return hr;
+    }
+
+  }
+
+  materials_.push_back(mat);
+  *out_material_handle = (uint32_t)(materials_.size() - 1);
 
   return S_OK;
 }
 
-void ModelRenderer::AddModel(uint32_t base_index, uint32_t num_indices, uint32_t image_handle)
+void ModelRenderer::AddModel(uint32_t base_index, uint32_t num_indices, uint32_t material_handle)
 {
   model_data model{};
   model.base_index = base_index;
   model.num_indices = num_indices;
-  model.image_handle = image_handle;
+  model.material_index = material_handle;
   models_.push_back(model);
 }
 
@@ -519,12 +555,9 @@ void ModelRenderer::OnRender()
   {
     for (auto& model : models_)
     {
-      context_->PSSetShaderResources(0, 1, images_[model.image_handle].srv.GetAddressOf());
-      if (model.base_index + model.num_indices > num_indices_)
-      {
-        int x = 3;
-        UNREFERENCED_PARAMETER(x);
-      }
+      auto& mat = materials_[model.material_index];
+      ID3D11ShaderResourceView* srvs[] = { mat.diffuse_srv.Get(), mat.normals_srv.Get() };
+      context_->PSSetShaderResources(0, 2, srvs);
       context_->DrawIndexed(model.num_indices, model.base_index, 0);
     }
   }
@@ -532,7 +565,9 @@ void ModelRenderer::OnRender()
   {
     for (auto& model : models_)
     {
-      context_->PSSetShaderResources(0, 1, images_[model.image_handle].srv.GetAddressOf());
+      auto& mat = materials_[model.material_index];
+      ID3D11ShaderResourceView* srvs[] = { mat.diffuse_srv.Get(), mat.normals_srv.Get() };
+      context_->PSSetShaderResources(0, 2, srvs);
       context_->Draw(model.num_indices, model.base_index);
     }
   }

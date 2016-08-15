@@ -8,9 +8,13 @@ cbuffer constants
 void main(
   in float3 position : POSITION,
   in float3 normal : NORMAL,
+  in float3 tangent : TANGENT,
+  in float3 bitangent : BITANGENT,
   in float2 texcoord : TEXCOORD,
   out float4 out_position : SV_POSITION,
   out float3 out_normal : NORMAL,
+  out float3 out_tangent : TANGENT,
+  out float3 out_bitangent : BITANGENT,
   out float2 out_texcoord : TEXCOORD)
 {
   out_position = mul(ViewToProjection,
@@ -19,6 +23,8 @@ void main(
 
   // only works if local to world is orthonormal
   out_normal = mul((float3x3)LocalToWorld, normal);
+  out_tangent = mul((float3x3)LocalToWorld, tangent);
+  out_bitangent = mul((float3x3)LocalToWorld, bitangent);
 
   out_texcoord = texcoord;
 }
